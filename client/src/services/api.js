@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const api = {
+  // ========== Legacy Facebook-only APIs (deprecated) ==========
   // Get list of fanpages
   getPages: () => {
     return axios.get(`${API_BASE_URL}/facebook/pages`);
@@ -17,9 +18,31 @@ const api = {
     });
   },
 
+  // ========== New Multi-Platform APIs ==========
+  // Get available platforms
+  getPlatforms: () => {
+    return axios.get(`${API_BASE_URL}/platform/platforms`);
+  },
+
+  // Get channels for platform(s)
+  getChannels: (platforms = 'all') => {
+    return axios.get(`${API_BASE_URL}/platform/channels`, {
+      params: { platforms }
+    });
+  },
+
+  // Post to multiple channels across platforms
+  postToChannels: (formData) => {
+    return axios.post(`${API_BASE_URL}/platform/post`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
   // Get posting history
   getHistory: () => {
-    return axios.get(`${API_BASE_URL}/facebook/history`);
+    return axios.get(`${API_BASE_URL}/platform/history`);
   },
 
   // Health check

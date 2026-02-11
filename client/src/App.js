@@ -1,63 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import PostForm from './components/PostForm';
-import PageList from './components/PageList';
+import ChannelList from './components/ChannelList';
 import History from './components/History';
 import api from './services/api';
 
 function App() {
-  const [pages, setPages] = useState([]);
-  const [selectedPages, setSelectedPages] = useState([]);
+  const [channels, setChannels] = useState({}); // Format: { facebook: {}, shopee: {} }
+  const [selectedChannels, setSelectedChannels] = useState([]); // Array of {platform, channelId, ...}
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('post'); // 'post' or 'history'
 
   useEffect(() => {
-    fetchPages();
+    fetchChannels();
   }, []);
 
-  const fetchPages = async () => {
+  const fetchChannels = async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await api.getPages();
+      const response = await api.getChannels('all');
       
       if (response.data.success) {
-        setPages(response.data.pages);
+        setChannels(response.data.results);
       } else {
-        setError('Không thể tải danh sách fanpage');
+        setError('Không thể tải danh sách kênh');
       }
     } catch (err) {
-      console.error('Error fetching pages:', err);
+      console.error('Error fetching channels:', err);
       setError(err.response?.data?.message || 'Không thể kết nối đến server. Vui lòng kiểm tra cấu hình.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handlePageToggle = (pageId) => {
-    setSelectedPages(prev => {
-      if (prev.includes(pageId)) {
-        return prev.filter(id => id !== pageId);
+  const handleChannelToggle = (platform, channel) => {
+    setSelectedChannels(prev => {
+      const exists = prev.some(
+        c => c.platform === platform && c.channelId === channel.id
+      );
+
+      if (exists) {
+        return prev.filter(
+          c => !(c.platform === platform && c.channelId === channel.id)
+        );
       } else {
-        return [...prev, pageId];
+        return [...prev, {
+          platform: platform,
+          channelId: channel.id,
+          channelName: channel.name,
+          accessToken: channel.accessToken // For Facebook
+        }];
       }
     });
   };
 
   const handleSelectAll = () => {
-    if (selectedPages.length === pages.length) {
-      setSelectedPages([]);
+    const allChannels = [];
+    
+    Object.keys(channels).forEach(platform => {
+      if (channels[platform].success && channels[platform].channels) {
+        channels[platform].channels.forEach(channel => {
+          allChannels.push({
+            platform: platform,
+            channelId: channel.id,
+            channelName: channel.name,
+            accessToken: channel.accessToken
+          });
+        });
+      }
+    });
+
+    if (selectedChannels.length === allChannels.length) {
+      setSelectedChannels([]);
     } else {
-      setSelectedPages(pages.map(page => page.id));
+      setSelectedChannels(allChannels);
     }
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>📱 Facebook Auto Posting System</h1>
-        <p>Đăng bài tự động lên nhiều fanpage</p>
+        <h1>🚀 Multi-Platform Auto Posting</h1>
+        <p>Đăng bài tự động lên nhiều nền tảng: Facebook, Shopee, và nhiều hơn nữa</p>
       </header>
 
       <div className="container">
@@ -81,7 +107,7 @@ function App() {
             {error && (
               <div className="error-box">
                 <p>❌ {error}</p>
-                <button onClick={fetchPages}>Thử lại</button>
+                <button onClick={fetchChannels}>Thử lại</button>
               </div>
             )}
 
@@ -92,16 +118,15 @@ function App() {
               </div>
             ) : (
               <>
-                <PageList 
-                  pages={pages}
-                  selectedPages={selectedPages}
-                  onPageToggle={handlePageToggle}
+                <ChannelList 
+                  channels={channels}
+                  selectedChannels={selectedChannels}
+                  onChannelToggle={handleChannelToggle}
                   onSelectAll={handleSelectAll}
                 />
                 
                 <PostForm 
-                  selectedPages={selectedPages}
-                  pages={pages}
+                  selectedChannels={selectedChannels}
                   onPostSuccess={() => {
                     // Optionally refresh or show success message
                   }}
@@ -115,7 +140,7 @@ function App() {
       </div>
 
       <footer className="App-footer">
-        <p>© 2026 Facebook Auto Posting System</p>
+        <p>© 2026 Multi-Platform Auto Posting System</p>
       </footer>
     </div>
   );

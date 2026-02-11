@@ -8,6 +8,46 @@
   margin-bottom: 1.5rem;
 }
 
+.selected-channels-info {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.selected-channels-info h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.platform-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.platform-label {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.channel-names {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.file-hint {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
 .result-box {
   padding: 1.5rem;
   border-radius: 8px;

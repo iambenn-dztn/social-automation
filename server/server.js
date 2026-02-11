@@ -10,6 +10,7 @@ dotenv.config();
 
 // Import routes
 const facebookRoutes = require('./routes/facebook');
+const platformRoutes = require('./routes/platform');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,14 +27,16 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // Routes
-app.use('/api/facebook', facebookRoutes);
+app.use('/api/facebook', facebookRoutes); // Legacy Facebook-only routes
+app.use('/api/platform', platformRoutes); // New multi-platform routes
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'Facebook Automation Server is running',
-    timestamp: new Date().toISOString()
+    message: 'Multi-Platform Automation Server is running',
+    timestamp: new Date().toISOString(),
+    platforms: ['facebook', 'shopee']
   });
 });
 
@@ -48,6 +51,12 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
+  console.log(`✅ Multi-Platform Automation Server is running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🌐 Supported platforms: Facebook, Shopee`);
+  console.log(`📚 API Endpoints:`);
+  console.log(`   - GET  /api/platform/platforms (Get available platforms)`);
+  console.log(`   - GET  /api/platform/channels   (Get channels)`);
+  console.log(`   - POST /api/platform/post       (Post to channels)`);
+  console.log(`   - GET  /api/platform/history    (Get history)`);
 });

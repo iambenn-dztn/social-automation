@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './PostForm.css';
 import api from '../services/api';
 
-function PostForm({ selectedPages, pages, onPostSuccess }) {
+function PostForm({ selectedChannels, onPostSuccess }) {
   const [message, setMessage] = useState('');
   const [mediaFile, setMediaFile] = useState(null);
   const [mediaPreview, setMediaPreview] = useState(null);
@@ -34,8 +34,8 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (selectedPages.length === 0) {
-      alert('Vui lòng chọn ít nhất một fanpage!');
+    if (selectedChannels.length === 0) {
+      alert('Vui lòng chọn ít nhất một kênh!');
       return;
     }
 
@@ -50,13 +50,13 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
     try {
       const formData = new FormData();
       formData.append('message', message);
-      formData.append('pageIds', JSON.stringify(selectedPages));
+      formData.append('channels', JSON.stringify(selectedChannels));
       
       if (mediaFile) {
         formData.append('media', mediaFile);
       }
 
-      const response = await api.postToPages(formData);
+      const response = await api.postToChannels(formData);
 
       if (response.data.success) {
         setResult({
@@ -87,6 +87,23 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
     }
   };
 
+  // Group selected channels by platform for display
+  const channelsByPlatform = {};
+  selectedChannels.forEach(channel => {
+    if (!channelsByPlatform[channel.platform]) {
+      channelsByPlatform[channel.platform] = [];
+    }
+    channelsByPlatform[channel.platform].push(channel);
+  });
+
+  const platformIcons = {
+    facebook: '📘',
+    shopee: '🛍️',
+    tiktok: '🎵',
+    youtube: '▶️',
+    instagram:  '📷'
+  };
+
   return (
     <div className="post-form-container">
       <h2>✍️ Tạo bài viết</h2>
@@ -110,7 +127,8 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
               <ul>
                 {result.results.map((r, index) => (
                   <li key={index} className={r.success ? 'success-item' : 'error-item'}>
-                    <strong>{r.pageName}:</strong> {r.success ? `✅ Đã đăng (ID: ${r.postId})` : `❌ ${r.error}`}
+                    <strong>{platformIcons[r.platform] || '📱'} {r.channelName}:</strong> 
+                    {r.success ? ` ✅ Đã đăng (ID: ${r.postId})` : ` ❌ ${r.error}`}
                   </li>
                 ))}
               </ul>
@@ -118,6 +136,22 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
           )}
           
           <button onClick={() => setResult(null)}>Đóng</button>
+        </div>
+      )}
+
+      {selectedChannels.length > 0 && (
+        <div className="selected-channels-info">
+          <h3>📌 Kênh đã chọn:</h3>
+          {Object.keys(channelsByPlatform).map(platform => (
+            <div key={platform} className="platform-group">
+              <span className="platform-label">
+                {platformIcons[platform] || '📱'} {platform}: 
+              </span>
+              <span className="channel-names">
+                {channelsByPlatform[platform].map(c => c.channelName).join(', ')}
+              </span>
+            </div>
+          ))}
         </div>
       )}
 
@@ -155,6 +189,9 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
               </button>
             )}
           </div>
+          <p className="file-hint">
+            💡 Tip: Video có thể mất thời gian upload lâu hơn (tối đa 500MB)
+          </p>
         </div>
 
         {mediaPreview && (
@@ -171,7 +208,7 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
           <button 
             type="submit" 
             className="submit-btn"
-            disabled={loading || selectedPages.length === 0}
+            disabled={loading || selectedChannels.length === 0}
           >
             {loading ? (
               <>
@@ -179,13 +216,13 @@ function PostForm({ selectedPages, pages, onPostSuccess }) {
                 Đang đăng bài...
               </>
             ) : (
-              `🚀 Đăng lên ${selectedPages.length} fanpage${selectedPages.length > 1 ? 's' : ''}`
+              `🚀 Đăng lên ${selectedChannels.length} kênh${selectedChannels.length > 1 ? 's' : ''}`
             )}
           </button>
         </div>
 
-        {selectedPages.length === 0 && (
-          <p className="warning">⚠️ Vui lòng chọn ít nhất một fanpage phía trên</p>
+        {selectedChannels.length === 0 && (
+          <p className="warning">⚠️ Vui lòng chọn ít nhất một kênh phía trên</p>
         )}
       </form>
     </div>
