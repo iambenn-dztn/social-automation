@@ -3,17 +3,18 @@
 }
 
 .post-form-container h2 {
-  color: #333;
+  color: #2c3e50;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .selected-channels-info {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
   color: white;
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
 }
 
 .selected-channels-info h3 {
@@ -98,7 +99,7 @@
 
 .details h4 {
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #2c3e50;
 }
 
 .details ul {
@@ -123,16 +124,18 @@
 .result-box button {
   margin-top: 1rem;
   padding: 0.5rem 1.5rem;
-  background: #666;
+  background: linear-gradient(135deg, #004e89 0%, #1a535c 100%);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 
 .result-box button:hover {
-  background: #444;
+  background: linear-gradient(135deg, #003d6e 0%, #0f424a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 78, 137, 0.2);
 }
 
 .post-form {
@@ -148,7 +151,7 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #2c3e50;
   font-weight: 500;
   font-size: 1.1rem;
 }
@@ -166,7 +169,8 @@
 
 .form-group textarea:focus {
   outline: none;
-  border-color: #4267B2;
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
 }
 
 .file-input-wrapper {
@@ -191,8 +195,8 @@
 }
 
 .file-input-label:hover {
-  border-color: #4267B2;
-  background: #f0f4ff;
+  border-color: #ff6b35;
+  background: rgba(255, 107, 53, 0.05);
 }
 
 .remove-file-btn {
@@ -230,7 +234,7 @@
 .submit-btn {
   width: 100%;
   padding: 1.25rem;
-  background: #4267B2;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -242,12 +246,13 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #365899;
+  background: linear-gradient(135deg, #e85d2c 0%, #ff6b35 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(66, 103, 178, 0.3);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
 }
 
 .submit-btn:disabled {
@@ -265,7 +270,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .warning {
@@ -279,11 +286,11 @@
   .post-form {
     padding: 1rem;
   }
-  
+
   .file-input-wrapper {
     flex-direction: column;
   }
-  
+
   .file-input-label,
   .remove-file-btn {
     width: 100%;

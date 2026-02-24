@@ -50,6 +50,27 @@ const api = {
   healthCheck: () => {
     return axios.get(`${API_BASE_URL}/health`);
   },
+
+  // ========== Article Management APIs ==========
+  // Get all articles
+  getArticles: () => {
+    return axios.get(`${API_BASE_URL}/articles`);
+  },
+
+  // Add new article
+  addArticle: (data) => {
+    return axios.post(`${API_BASE_URL}/articles`, data);
+  },
+
+  // Update article status
+  updateArticleStatus: (id, status) => {
+    return axios.patch(`${API_BASE_URL}/articles/${id}/status`, { status });
+  },
+
+  // Delete article
+  deleteArticle: (id) => {
+    return axios.delete(`${API_BASE_URL}/articles/${id}`);
+  },
 };
 
 export default api;

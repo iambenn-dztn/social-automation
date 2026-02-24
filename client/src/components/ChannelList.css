@@ -12,13 +12,13 @@
 }
 
 .channel-list-header h2 {
-  color: #333;
+  color: #2c3e50;
   font-size: 1.5rem;
 }
 
 .select-all-btn {
   padding: 0.75rem 1.5rem;
-  background: #4267B2;
+  background: linear-gradient(135deg, #004e89 0%, #1a535c 100%);
   color: white;
   border: none;
   border-radius: 6px;
@@ -29,9 +29,9 @@
 }
 
 .select-all-btn:hover {
-  background: #365899;
+  background: linear-gradient(135deg, #003d6e 0%, #0f424a 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 78, 137, 0.3);
 }
 
 .platform-section {
@@ -43,11 +43,12 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
   color: white;
   border-radius: 8px 8px 0 0;
-  border-left: 5px solid #667eea;
+  border-left: 5px solid #e85d2c;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
 }
 
 .platform-icon {
@@ -92,15 +93,20 @@
 }
 
 .channel-item.selected {
-  background: #f0f4ff;
-  box-shadow: 0 2px 8px rgba(66, 103, 178, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.1) 0%,
+    rgba(255, 140, 66, 0.05) 100%
+  );
+  border-color: #ff6b35;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
 }
 
 .channel-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #4267B2;
+  accent-color: #ff6b35;
 }
 
 .channel-picture {
@@ -115,7 +121,7 @@
 }
 
 .channel-info h4 {
-  color: #333;
+  color: #2c3e50;
   font-size: 1rem;
   margin-bottom: 0.25rem;
 }
@@ -147,7 +153,7 @@
 
 .checkmark {
   font-size: 1.5rem;
-  color: #4267B2;
+  color: #ff6b35;
   font-weight: bold;
   min-width: 24px;
   text-align: center;
@@ -170,12 +176,12 @@
   .channel-list {
     grid-template-columns: 1fr;
   }
-  
+
   .channel-list-header {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .select-all-btn {
     width: 100%;
   }

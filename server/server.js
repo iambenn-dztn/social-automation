@@ -11,6 +11,7 @@ dotenv.config();
 // Import routes
 const facebookRoutes = require("./routes/facebook");
 const platformRoutes = require("./routes/platform");
+const articleRoutes = require("./routes/articles");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,7 +28,8 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // Routes
-app.use("/api/facebook", facebookRoutes); // Legacy Facebook-only routes
+app.use("/api/facebook", facebookRoutes); // Legacy Facebook-only rout
+app.use("/api/articles", articleRoutes); // Article management routeses
 app.use("/api/platform", platformRoutes); // New multi-platform routes
 
 // Health check endpoint
@@ -58,5 +60,7 @@ app.listen(PORT, () => {
   console.log(`   - GET  /api/platform/platforms (Get available platforms)`);
   console.log(`   - GET  /api/platform/channels   (Get channels)`);
   console.log(`   - POST /api/platform/post       (Post to channels)`);
+  console.log(`   - GET  /api/articles            (Get articles)`);
+  console.log(`   - POST /api/articles            (Add article)`);
   console.log(`   - GET  /api/platform/history    (Get history)`);
 });
