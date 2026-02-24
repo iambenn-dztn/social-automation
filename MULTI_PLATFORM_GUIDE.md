@@ -3,6 +3,7 @@
 ## 📋 Tổng quan
 
 Hệ thống đã được **nâng cấp** để hỗ trợ đăng bài tự động lên **nhiều nền tảng**:
+
 - ✅ **Facebook** (Fanpages)
 - ✅ **Shopee** (Shop Video)
 - 🔄 **Sẵn sàng mở rộng**: TikTok, YouTube, Instagram, Lazada, etc.
@@ -58,24 +59,22 @@ Client                    Server                   Platforms
 Tạo file mới trong `server/platforms/your-platform/YourPlatform.js`:
 
 ```javascript
-const BasePlatform = require('../base/BasePlatform');
-const axios = require('axios');
+const BasePlatform = require("../base/BasePlatform");
+const axios = require("axios");
 
 class YourPlatform extends BasePlatform {
   constructor(config) {
-    super('YourPlatform', config);
+    super("YourPlatform", config);
     this.apiKey = config.apiKey;
     // ... other config
   }
 
   static getConfigSchema() {
     return {
-      name: 'YourPlatform',
-      requiredFields: [
-        { name: 'apiKey', label: 'API Key', type: 'text' }
-      ],
+      name: "YourPlatform",
+      requiredFields: [{ name: "apiKey", label: "API Key", type: "text" }],
       optionalFields: [],
-      documentation: 'https://your-platform-docs.com'
+      documentation: "https://your-platform-docs.com",
     };
   }
 
@@ -92,12 +91,12 @@ class YourPlatform extends BasePlatform {
   async getChannels() {
     // Fetch channels/accounts/pages
     try {
-      const response = await axios.get('API_URL');
-      return response.data.map(channel => ({
+      const response = await axios.get("API_URL");
+      return response.data.map((channel) => ({
         id: channel.id,
         name: channel.name,
         picture: channel.avatar,
-        platform: 'yourplatform'
+        platform: "yourplatform",
       }));
     } catch (error) {
       throw this.formatError(error);
@@ -112,9 +111,9 @@ class YourPlatform extends BasePlatform {
   async post(postData, options = {}) {
     // Post content to platform
     const { message, channelId, media } = postData;
-    
+
     try {
-      const response = await axios.post('API_URL', {
+      const response = await axios.post("API_URL", {
         content: message,
         // ... other fields
       });
@@ -122,8 +121,8 @@ class YourPlatform extends BasePlatform {
       return {
         success: true,
         postId: response.data.id,
-        platform: 'yourplatform',
-        channelId: channelId
+        platform: "yourplatform",
+        channelId: channelId,
       };
     } catch (error) {
       throw this.formatError(error);
@@ -179,21 +178,22 @@ Thêm icon và color trong `client/src/components/ChannelList.js`:
 
 ```javascript
 const platformIcons = {
-  facebook: '📘',
-  shopee: '🛍️',
-  yourplatform: '🎯' // ← Thêm icon
+  facebook: "📘",
+  shopee: "🛍️",
+  yourplatform: "🎯", // ← Thêm icon
 };
 
 const platformColors = {
-  facebook: '#4267B2',
-  shopee: '#EE4D2D',
-  yourplatform: '#FF6B6B' // ← Thêm màu
+  facebook: "#4267B2",
+  shopee: "#EE4D2D",
+  yourplatform: "#FF6B6B", // ← Thêm màu
 };
 ```
 
 ### **XONG!** 🎉
 
 Platform mới của bạn đã được tích hợp! Hệ thống tự động:
+
 - ✅ Hiển thị trong danh sách platforms
 - ✅ Fetch channels tự động
 - ✅ Xử lý upload và posting
@@ -202,11 +202,13 @@ Platform mới của bạn đã được tích hợp! Hệ thống tự động:
 ## 📚 API DOCUMENTATION
 
 ### **1. Get Platforms**
+
 ```http
 GET /api/platform/platforms
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -227,12 +229,14 @@ GET /api/platform/platforms
 ```
 
 ### **2. Get Channels**
+
 ```http
 GET /api/platform/channels?platforms=all
 GET /api/platform/channels?platforms=facebook,shopee
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -257,6 +261,7 @@ GET /api/platform/channels?platforms=facebook,shopee
 ```
 
 ### **3. Post to Channels**
+
 ```http
 POST /api/platform/post
 Content-Type: multipart/form-data
@@ -268,6 +273,7 @@ Body:
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -292,11 +298,13 @@ Body:
 ## ⚙️ CẤU HÌNH
 
 ### **Facebook**
+
 ```env
 FACEBOOK_ACCESS_TOKEN=your_token_here
 ```
 
 ### **Shopee**
+
 ```env
 SHOPEE_PARTNER_ID=your_partner_id
 SHOPEE_PARTNER_KEY=your_partner_key
@@ -306,11 +314,13 @@ SHOPEE_SHOP_ID=your_shop_id
 ### **Hướng dẫn lấy credentials:**
 
 #### **Facebook:**
+
 1. Vào: https://developers.facebook.com/tools/explorer/
 2. Generate Access Token với permissions
 3. Copy token
 
 #### **Shopee:**
+
 1. Đăng ký Shopee Partner: https://open.shopee.com/
 2. Tạo App
 3. Lấy Partner ID và Partner Key từ App Settings
@@ -322,10 +332,10 @@ SHOPEE_SHOP_ID=your_shop_id
 
 ```powershell
 # Get all channels
-Invoke-WebRequest -Uri "http://localhost:5000/api/platform/channels?platforms=all" -UseBasicParsing
+Invoke-WebRequest -Uri "http://localhost:3001/api/platform/channels?platforms=all" -UseBasicParsing
 
 # Get specific platforms
-Invoke-WebRequest -Uri "http://localhost:5000/api/platform/channels?platforms=facebook,shopee" -UseBasicParsing
+Invoke-WebRequest -Uri "http://localhost:3001/api/platform/channels?platforms=facebook,shopee" -UseBasicParsing
 ```
 
 ### **Test Platform Factory:**
@@ -345,49 +355,58 @@ const shopee = platformFactory.create('shopee', { partnerId: '...', ... });
 ## 🎯 BEST PRACTICES
 
 ### **1. Error Handling**
+
 Mỗi platform tự xử lý errors và trả về format chuẩn qua `formatError()`.
 
 ### **2. Logging**
+
 Sử dụng `this.log()` để tracking activities:
+
 ```javascript
-this.log('Upload started', { filename: file.name });
+this.log("Upload started", { filename: file.name });
 ```
 
 ### **3. Configuration**
+
 Luôn define `getConfigSchema()` để document requirements.
 
 ### **4. Validation**
+
 Implement `validateCredentials()` để check credentials trước khi dùng.
 
 ### **5. Async/Await**
+
 Tất cả methods đều async để handle API calls properly.
 
 ## 📊 PLATFORM STATUS
 
-| Platform | Status | Features | Priority |
-|----------|--------|----------|----------|
-| Facebook | ✅ Complete | Text, Image, Video | High |
-| Shopee | ✅ Complete | Video Upload | High |
-| TikTok | 🔄 Ready to add | Video | Medium |
-| YouTube | 🔄 Ready to add | Video | Medium |
-| Instagram | 🔄 Ready to add | Image, Video | Medium |
-| Lazada | 🔄 Ready to add | Product, Media | Low |
+| Platform  | Status          | Features           | Priority |
+| --------- | --------------- | ------------------ | -------- |
+| Facebook  | ✅ Complete     | Text, Image, Video | High     |
+| Shopee    | ✅ Complete     | Video Upload       | High     |
+| TikTok    | 🔄 Ready to add | Video              | Medium   |
+| YouTube   | 🔄 Ready to add | Video              | Medium   |
+| Instagram | 🔄 Ready to add | Image, Video       | Medium   |
+| Lazada    | 🔄 Ready to add | Product, Media     | Low      |
 
 ## 🚀 ROADMAP
 
 ### **Phase 1** (Completed ✅)
+
 - ✅ Tái cấu trúc code theo Pattern
 - ✅ Facebook integration
 - ✅ Shopee integration
 - ✅ Multi-platform UI
 
 ### **Phase 2** (Next)
+
 - ⏳ TikTok integration
 - ⏳ YouTube integration
 - ⏳ Scheduled posting
 - ⏳ Template management
 
 ### **Phase 3** (Future)
+
 - ⏳ Analytics dashboard
 - ⏳ Bulk upload
 - ⏳ AI content generator
@@ -399,18 +418,18 @@ Tất cả methods đều async để handle API calls properly.
 
 ```javascript
 // Enable detailed logging
-const platform = platformFactory.create('facebook', config);
-platform.log('Debug info', { detail: '...' });
+const platform = platformFactory.create("facebook", config);
+platform.log("Debug info", { detail: "..." });
 ```
 
 ### **Handle Platform-Specific Logic:**
 
 ```javascript
 // In controller
-if (platformName === 'shopee') {
+if (platformName === "shopee") {
   // Shopee requires video upload first
   mediaInfo = await platform.uploadMedia(file);
-} else if (platformName === 'facebook') {
+} else if (platformName === "facebook") {
   // Facebook can upload with post
   // Handle inline
 }
@@ -420,8 +439,8 @@ if (platformName === 'shopee') {
 
 ```javascript
 // Post to multiple channels in parallel
-const promises = channels.map(channel => 
-  platform.post({ message, channelId: channel.id })
+const promises = channels.map((channel) =>
+  platform.post({ message, channelId: channel.id }),
 );
 const results = await Promise.allSettled(promises);
 ```
@@ -429,14 +448,17 @@ const results = await Promise.allSettled(promises);
 ## 🆘 TROUBLESHOOTING
 
 ### **Platform không xuất hiện trong UI:**
+
 1. Check `platformFactory.registerDefaultPlatforms()`
 2. Check React `platformIcons` đã có icon chưa
 
 ### **Lỗi "Platform not configured":**
+
 1. Check `.env` file có đúng variables không
 2. Check `platformController.js` có config cho platform đó không
 
 ### **Upload video lỗi:**
+
 1. Check file size limit (500MB)
 2. Check platform có support video không
 3. Check permissions/credentials

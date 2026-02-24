@@ -5,6 +5,7 @@
 ### ✅ Infrastructure Tests
 
 #### 1. Dependencies Installation
+
 - **Server**: ✅ PASSED
   - Express.js installed
   - All 127 packages installed successfully
@@ -16,8 +17,9 @@
   - Minor warnings (non-critical)
 
 #### 2. Server Startup
+
 - **Status**: ✅ PASSED
-- **Port**: 5000
+- **Port**: 3001
 - **Health Endpoint**: Working
   ```json
   {
@@ -28,12 +30,14 @@
   ```
 
 #### 3. Client Startup
+
 - **Status**: ✅ PASSED
 - **Port**: 3000
 - **Compilation**: Successful
 - **Message**: "Compiled successfully!"
 
 #### 4. Code Quality
+
 - **ESLint**: ✅ No errors
 - **TypeScript**: N/A (Pure JavaScript)
 - **CSS**: ✅ No errors (after fix)
@@ -43,12 +47,14 @@
 The following tests require a valid Facebook Access Token:
 
 #### 1. Get Pages API
+
 ```powershell
 # Test command:
-(Invoke-WebRequest -Uri "http://localhost:5000/api/facebook/pages" -UseBasicParsing).Content
+(Invoke-WebRequest -Uri "http://localhost:3001/api/facebook/pages" -UseBasicParsing).Content
 ```
 
 **Expected Result**:
+
 ```json
 {
   "success": true,
@@ -64,12 +70,14 @@ The following tests require a valid Facebook Access Token:
 ```
 
 **Test Cases**:
+
 - [ ] Returns list of pages user manages
 - [ ] Each page has id, name, picture, access_token
 - [ ] No pages returns empty array
 - [ ] Invalid token returns error message
 
 #### 2. Post to Pages
+
 ```powershell
 # Test with text only
 $body = @{
@@ -77,7 +85,7 @@ $body = @{
     pageIds = '["page_id_1"]'
 } | ConvertTo-Json
 
-Invoke-WebRequest -Uri "http://localhost:5000/api/facebook/post" `
+Invoke-WebRequest -Uri "http://localhost:3001/api/facebook/post" `
   -Method POST `
   -ContentType "application/json" `
   -Body $body `
@@ -85,6 +93,7 @@ Invoke-WebRequest -Uri "http://localhost:5000/api/facebook/post" `
 ```
 
 **Test Cases**:
+
 - [ ] Text-only post works
 - [ ] Post with image works
 - [ ] Post with video works
@@ -93,11 +102,13 @@ Invoke-WebRequest -Uri "http://localhost:5000/api/facebook/post" `
 - [ ] Error handling for missing message
 
 #### 3. History API
+
 ```powershell
-(Invoke-WebRequest -Uri "http://localhost:5000/api/facebook/history" -UseBasicParsing).Content
+(Invoke-WebRequest -Uri "http://localhost:3001/api/facebook/history" -UseBasicParsing).Content
 ```
 
 **Test Cases**:
+
 - [ ] Returns empty array initially
 - [ ] Shows posts after posting
 - [ ] Sorted by newest first
@@ -150,12 +161,14 @@ Invoke-WebRequest -Uri "http://localhost:5000/api/facebook/post" `
 ### 📱 UI/UX Tests
 
 #### Desktop (1920x1080)
+
 - [x] Layout responsive
 - [x] All buttons visible
 - [x] Forms usable
 - [x] No overflow issues
 
 #### Mobile (375x667)
+
 - [x] CSS media queries active
 - [x] Touch-friendly buttons
 - [x] Readable text
@@ -177,6 +190,7 @@ To fully test the application, you need to:
    - Add to `server/.env`
 
 2. **Test Full Workflow**
+
    ```
    1. Restart server after adding token
    2. Open client at http://localhost:3000
@@ -198,16 +212,16 @@ To fully test the application, you need to:
 
 ### 📋 Test Summary
 
-| Category | Passed | Failed | Skipped | Total |
-|----------|--------|--------|---------|-------|
-| Infrastructure | 4 | 0 | 0 | 4 |
-| Code Quality | 3 | 0 | 0 | 3 |
-| API Endpoints | 1 | 0 | 3 | 4 |
-| Components | 4 | 0 | 0 | 4 |
-| Security | 6 | 0 | 0 | 6 |
-| Performance | 3 | 0 | 1 | 4 |
-| UI/UX | 8 | 0 | 0 | 8 |
-| **TOTAL** | **29** | **0** | **4** | **33** |
+| Category       | Passed | Failed | Skipped | Total  |
+| -------------- | ------ | ------ | ------- | ------ |
+| Infrastructure | 4      | 0      | 0       | 4      |
+| Code Quality   | 3      | 0      | 0       | 3      |
+| API Endpoints  | 1      | 0      | 3       | 4      |
+| Components     | 4      | 0      | 0       | 4      |
+| Security       | 6      | 0      | 0       | 6      |
+| Performance    | 3      | 0      | 1       | 4      |
+| UI/UX          | 8      | 0      | 0       | 8      |
+| **TOTAL**      | **29** | **0**  | **4**   | **33** |
 
 **Success Rate**: 87.9% (29/33 tests passed)
 **Pending**: 12.1% (4 tests require Facebook token)

@@ -3,6 +3,7 @@
 ## 📋 Tổng quan
 
 Shopee Platform cho phép bạn:
+
 - ✅ Upload video lên Shopee Video
 - ✅ Quản lý video content
 - ✅ Hiển thị video trên shop của bạn
@@ -35,17 +36,20 @@ Shopee Platform cho phép bạn:
 ### **Bước 4: Lấy Shop ID**
 
 #### **Cách 1: Từ Seller Center**
+
 1. Vào: https://seller.shopee.vn/
 2. Đăng nhập
 3. Vào **"Pengaturan Toko"** (Shop Settings)
 4. Shop ID sẽ hiển thị ở phần **"Informasi Toko"**
 
 #### **Cách 2: Từ URL**
+
 1. Vào shop của bạn
 2. URL sẽ có dạng: `https://shopee.vn/shop/123456789`
 3. Số `123456789` là Shop ID
 
 #### **Cách 3: Dùng API**
+
 ```powershell
 # Sử dụng Access Token để lấy shop info
 $url = "https://partner.shopeemobile.com/api/v2/shop/get_shop_info"
@@ -63,6 +67,7 @@ SHOPEE_SHOP_ID=YOUR_SHOP_ID_HERE
 ```
 
 **Ví dụ:**
+
 ```env
 SHOPEE_PARTNER_ID=123456
 SHOPEE_PARTNER_KEY=abc123def456ghi789jkl012mno345pqr678stu901vwx
@@ -76,25 +81,25 @@ Shopee sử dụng **HMAC-SHA256** signature authentication:
 ### **Signature Generation:**
 
 ```javascript
-const crypto = require('crypto');
+const crypto = require("crypto");
 
-const partnerId = 'YOUR_PARTNER_ID';
-const partnerKey = 'YOUR_PARTNER_KEY';
-const path = '/api/v2/shop/get_shop_info';
+const partnerId = "YOUR_PARTNER_ID";
+const partnerKey = "YOUR_PARTNER_KEY";
+const path = "/api/v2/shop/get_shop_info";
 const timestamp = Math.floor(Date.now() / 1000);
 
 const baseString = `${partnerId}${path}${timestamp}`;
 const sign = crypto
-  .createHmac('sha256', partnerKey)
+  .createHmac("sha256", partnerKey)
   .update(baseString)
-  .digest('hex');
+  .digest("hex");
 
 // Use trong headers:
 headers = {
-  'partner-id': partnerId,
-  'timestamp': timestamp,
-  'sign': sign
-}
+  "partner-id": partnerId,
+  timestamp: timestamp,
+  sign: sign,
+};
 ```
 
 ## 📹 UPLOAD VIDEO WORKFLOW
@@ -116,6 +121,7 @@ headers = {
 ### **Detailed Steps:**
 
 #### **1. Initialize Upload**
+
 ```javascript
 POST https://partner.shopeemobile.com/api/v2/media_space/upload_video
 
@@ -134,6 +140,7 @@ Response:
 ```
 
 #### **2. Upload File**
+
 ```javascript
 POST [upload_url]
 Content-Type: multipart/form-data
@@ -143,6 +150,7 @@ Body:
 ```
 
 #### **3. Update Video Info**
+
 ```javascript
 POST https://partner.shopeemobile.com/api/v2/media_space/update_video
 
@@ -156,6 +164,7 @@ Body:
 ```
 
 #### **4. Check Status**
+
 ```javascript
 POST https://partner.shopeemobile.com/api/v2/media_space/get_video_upload_result
 
@@ -178,49 +187,57 @@ Response:
 
 ### **Video Requirements:**
 
-| Parameter | Value |
-|-----------|-------|
-| **Max File Size** | 500MB |
-| **Format** | MP4, MOV, AVI |
-| **Min Duration** | 3 seconds |
-| **Max Duration** | 60 minutes |
-| **Resolution** | 720p or higher recommended |
-| **Aspect Ratio** | 9:16 (vertical) or 16:9 (horizontal) |
+| Parameter         | Value                                |
+| ----------------- | ------------------------------------ |
+| **Max File Size** | 500MB                                |
+| **Format**        | MP4, MOV, AVI                        |
+| **Min Duration**  | 3 seconds                            |
+| **Max Duration**  | 60 minutes                           |
+| **Resolution**    | 720p or higher recommended           |
+| **Aspect Ratio**  | 9:16 (vertical) or 16:9 (horizontal) |
 
 ### **API Limits:**
 
-| Limit Type | Value |
-|------------|-------|
-| **Requests/second** | 10 |
-| **Daily requests** | 100,000 |
-| **Concurrent uploads** | 5 |
+| Limit Type             | Value   |
+| ---------------------- | ------- |
+| **Requests/second**    | 10      |
+| **Daily requests**     | 100,000 |
+| **Concurrent uploads** | 5       |
 
 ## 🐛 COMMON ERRORS
 
 ### **1. "Invalid signature"**
+
 **Nguyên nhân:** Signature không đúng
 **Giải pháp:**
+
 - Check Partner ID và Partner Key
 - Check timestamp (Unix timestamp in seconds)
 - Check path string chính xác
 - Đảm bảo HMAC-SHA256 encoding đúng
 
 ### **2. "Shop not found"**
+
 **Nguyên nhân:** Shop ID sai
 **Giải pháp:**
+
 - Verify Shop ID từ Seller Center
 - Check quyền truy cập shop
 
 ### **3. "Upload failed"**
+
 **Nguyên nhân:** Video không đúng format hoặc quá lớn
 **Giải pháp:**
+
 - Check file size < 500MB
 - Check format (MP4 recommended)
 - Check video không corrupt
 
 ### **4. "Rate limit exceeded"**
+
 **Nguyên nhân:** Quá nhiều requests
 **Giải pháp:**
+
 - Implement rate limiting
 - Add delay giữa requests
 - Use queue system
@@ -230,40 +247,40 @@ Response:
 ### **Test Connection:**
 
 ```javascript
-const ShopeePlatform = require('./platforms/shopee/ShopeePlatform');
+const ShopeePlatform = require("./platforms/shopee/ShopeePlatform");
 
 const config = {
-  partnerId: 'YOUR_PARTNER_ID',
-  partnerKey: 'YOUR_PARTNER_KEY',
-  shopId: 'YOUR_SHOP_ID'
+  partnerId: "YOUR_PARTNER_ID",
+  partnerKey: "YOUR_PARTNER_KEY",
+  shopId: "YOUR_SHOP_ID",
 };
 
 const shopee = new ShopeePlatform(config);
 
 // Test credentials
 const isValid = await shopee.validateCredentials();
-console.log('Credentials valid:', isValid);
+console.log("Credentials valid:", isValid);
 
 // Get shop info
 const channels = await shopee.getChannels();
-console.log('Shop info:', channels);
+console.log("Shop info:", channels);
 ```
 
 ### **Test Video Upload:**
 
 ```javascript
 const mediaFile = {
-  path: '/path/to/video.mp4',
-  filename: 'video.mp4'
+  path: "/path/to/video.mp4",
+  filename: "video.mp4",
 };
 
 // Upload
 const uploadResult = await shopee.uploadMedia(mediaFile);
-console.log('Upload result:', uploadResult);
+console.log("Upload result:", uploadResult);
 
 // Check status
 const status = await shopee.getVideoStatus(uploadResult.mediaId);
-console.log('Video status:', status);
+console.log("Video status:", status);
 ```
 
 ## 📚 API ENDPOINTS REFERENCE
@@ -304,14 +321,17 @@ POST /api/v2/media_space/delete_video
 ## ⚠️ IMPORTANT NOTES
 
 ### **Permissions Required:**
+
 - Shop owner hoặc authorized user
 - App phải được approve bởi Shopee (trong một số thị trường)
 
 ### **Production vs Development:**
+
 - Development: Dùng sandbox environment (nếu có)
 - Production: Dùng production credentials
 
 ### **Security Best Practices:**
+
 - ❌ KHÔNG commit Partner Key vào Git
 - ❌ KHÔNG share Partner Key công khai
 - ✅ Store trong environment variables
@@ -319,6 +339,7 @@ POST /api/v2/media_space/delete_video
 - ✅ Monitor API usage
 
 ### **Video Guidelines:**
+
 - Video phải tuân thủ Shopee policies
 - Không chứa content vi phạm
 - Không spam hoặc duplicate content
@@ -327,21 +348,21 @@ POST /api/v2/media_space/delete_video
 ## 💡 TIPS & OPTIMIZATION
 
 ### **1. Batch Upload:**
+
 ```javascript
 // Upload nhiều video cùng lúc
 const videos = [video1, video2, video3];
-const results = await Promise.all(
-  videos.map(v => shopee.uploadMedia(v))
-);
+const results = await Promise.all(videos.map((v) => shopee.uploadMedia(v)));
 ```
 
 ### **2. Progress Tracking:**
+
 ```javascript
 // Check upload progress
 const checkProgress = async (videoId) => {
-  let status = 'processing';
-  while (status === 'processing') {
-    await sleep(5000); // Wait 5s
+  let status = "processing";
+  while (status === "processing") {
+    await sleep(3001); // Wait 5s
     const result = await shopee.getVideoStatus(videoId);
     status = result.status;
   }
@@ -350,6 +371,7 @@ const checkProgress = async (videoId) => {
 ```
 
 ### **3. Error Retry:**
+
 ```javascript
 // Retry failed uploads
 const uploadWithRetry = async (file, maxRetries = 3) => {

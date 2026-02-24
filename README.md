@@ -19,10 +19,12 @@ Hệ thống tự động đăng bài lên nhiều Facebook Fanpage cùng lúc, 
 ## 🎬 Demo
 
 ### Giao diện chính
+
 - Tab "Đăng bài": Tạo và đăng nội dung
 - Tab "Lịch sử": Xem các bài đã đăng
 
 ### Tính năng chính
+
 1. **Chọn Fanpage**: Click để chọn/bỏ chọn fanpage
 2. **Tạo nội dung**: Nhập text, upload ảnh/video
 3. **Đăng bài**: Click một nút, đăng lên tất cả fanpage đã chọn
@@ -31,12 +33,14 @@ Hệ thống tự động đăng bài lên nhiều Facebook Fanpage cùng lúc, 
 ## 🛠️ Công nghệ
 
 ### Backend
+
 - **Express.js** - Web framework
 - **Multer** - File upload handling
 - **Axios** - HTTP client
 - **Facebook Graph API v18.0** - Facebook integration
 
 ### Frontend
+
 - **React.js 18** - UI library
 - **Axios** - API communication
 - **Modern CSS3** - Styling
@@ -77,7 +81,7 @@ npm install
 4. Tạo file `.env` trong thư mục `server/`:
 
 ```env
-PORT=5000
+PORT=3001
 FACEBOOK_ACCESS_TOKEN=your_access_token_here
 ```
 
@@ -107,19 +111,22 @@ Xem các file documentation:
 
 ## 🔍 API Endpoints
 
-### Server APIs (http://localhost:5000)
+### Server APIs (http://localhost:3001)
 
 #### Health Check
+
 ```http
 GET /api/health
 ```
 
 #### Lấy danh sách Fanpages
+
 ```http
 GET /api/facebook/pages
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -135,6 +142,7 @@ GET /api/facebook/pages
 ```
 
 #### Đăng bài lên Fanpages
+
 ```http
 POST /api/facebook/post
 Content-Type: multipart/form-data
@@ -146,6 +154,7 @@ Parameters:
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -160,6 +169,7 @@ Parameters:
 ```
 
 #### Lấy lịch sử đăng bài
+
 ```http
 GET /api/facebook/history
 ```
@@ -199,12 +209,14 @@ facebook-automation/
 ## ⚠️ Lưu ý quan trọng
 
 ### Bảo mật
+
 - ❌ **KHÔNG** commit file `.env` vào Git
 - ❌ **KHÔNG** share Access Token công khai
 - ✅ Sử dụng environment variables
 - ✅ Token đã được thêm vào `.gitignore`
 
 ### Facebook Limitations
+
 - **Rate Limiting**: Facebook giới hạn số request/giây
 - **Token Expiry**: Token sẽ hết hạn sau vài giờ/ngày
 - **File Size**: Video tối đa 100MB
@@ -222,21 +234,24 @@ Short-lived token chỉ tồn tại vài giờ. Để có token 60 ngày:
 ## 🐛 Troubleshooting
 
 ### Server không start
+
 ```bash
-# Kiểm tra port 5000
-netstat -ano | findstr :5000
+# Kiểm tra port 3001
+netstat -ano | findstr :3001
 
 # Kill process nếu bị chiếm
 taskkill /PID <PID> /F
 ```
 
 ### Không thấy Fanpage
+
 1. Kiểm tra Access Token trong `.env`
 2. Verify token chưa hết hạn
 3. Kiểm tra permissions đã đủ chưa
 4. Xem console logs (F12)
 
 ### Upload file lỗi
+
 1. File size < 100MB
 2. Format: jpg, png, gif, mp4, mov, avi
 3. Kiểm tra quyền ghi thư mục `uploads/`
@@ -281,11 +296,13 @@ npm run build
 ## 📞 Support & Contact
 
 ### Debug Tips
+
 1. **Browser**: Press F12 → Console tab (frontend errors)
 2. **Terminal**: Check server terminal logs (backend errors)
 3. **Network**: F12 → Network tab (API calls)
 
 ### Useful Links
+
 - [Facebook Graph API Docs](https://developers.facebook.com/docs/graph-api/)
 - [Facebook Pages API](https://developers.facebook.com/docs/pages/)
 - [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
@@ -323,6 +340,7 @@ MIT License - Free to use for personal and commercial projects.
 ## 🙏 Acknowledgments
 
 Built with:
+
 - Modern web technologies
 - Best practices & security first approach
 - Comprehensive documentation

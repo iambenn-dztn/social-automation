@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:3001/api";
 
 const api = {
   // ========== Legacy Facebook-only APIs (deprecated) ==========
@@ -13,7 +14,7 @@ const api = {
   postToPages: (formData) => {
     return axios.post(`${API_BASE_URL}/facebook/post`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
   },
@@ -25,9 +26,9 @@ const api = {
   },
 
   // Get channels for platform(s)
-  getChannels: (platforms = 'all') => {
+  getChannels: (platforms = "all") => {
     return axios.get(`${API_BASE_URL}/platform/channels`, {
-      params: { platforms }
+      params: { platforms },
     });
   },
 
@@ -35,7 +36,7 @@ const api = {
   postToChannels: (formData) => {
     return axios.post(`${API_BASE_URL}/platform/post`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
   },

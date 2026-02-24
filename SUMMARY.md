@@ -34,17 +34,17 @@ Hệ thống tự động đăng bài lên nhiều Facebook Fanpage đã đượ
 
 ## 📊 THỐNG KÊ DỰ ÁN
 
-| Thông tin | Chi tiết |
-|-----------|----------|
-| **Tổng số file** | 26 files |
-| **Backend files** | 7 files |
-| **Frontend files** | 14 files |
-| **Documentation** | 5 files |
-| **Dependencies** | Server: 127 packages<br>Client: 1297 packages |
-| **API Endpoints** | 4 endpoints |
-| **React Components** | 3 main components |
-| **Lines of Code** | ~2000+ lines |
-| **Test Coverage** | 87.9% (29/33 tests) |
+| Thông tin            | Chi tiết                                      |
+| -------------------- | --------------------------------------------- |
+| **Tổng số file**     | 26 files                                      |
+| **Backend files**    | 7 files                                       |
+| **Frontend files**   | 14 files                                      |
+| **Documentation**    | 5 files                                       |
+| **Dependencies**     | Server: 127 packages<br>Client: 1297 packages |
+| **API Endpoints**    | 4 endpoints                                   |
+| **React Components** | 3 main components                             |
+| **Lines of Code**    | ~2000+ lines                                  |
+| **Test Coverage**    | 87.9% (29/33 tests)                           |
 
 ## 🗂️ CẤU TRÚC PROJECT
 
@@ -88,6 +88,7 @@ facebook-automation/
 ## 🚀 HƯỚNG DẪN SỬ DỤNG NHANH
 
 ### Bước 1: Cài đặt (ĐÃ HOÀN THÀNH)
+
 ```powershell
 ✅ cd server && npm install     # Đã xong
 ✅ cd client && npm install     # Đã xong
@@ -115,18 +116,21 @@ facebook-automation/
 ### Bước 3: Chạy hệ thống
 
 **Terminal 1 - Server:**
+
 ```powershell
 cd server
 npm start
 ```
 
 **Terminal 2 - Client:**
+
 ```powershell
 cd client
 npm start
 ```
 
 ### Bước 4: Sử dụng
+
 - Mở browser: http://localhost:3000
 - Chọn fanpages
 - Nhập nội dung + upload media
@@ -136,23 +140,27 @@ npm start
 ## 🎨 SCREENSHOTS & UI
 
 ### Trang chính
+
 - Header với logo và tiêu đề
 - Tabs: "Đăng bài" và "Lịch sử"
 - Gradient background đẹp mắt
 
 ### Danh sách Fanpage
+
 - Grid layout responsive
 - Checkbox selection
 - Page avatar và tên
 - "Chọn tất cả" button
 
 ### Form đăng bài
+
 - Textarea lớn cho nội dung
 - File upload với preview
 - Progress indicator khi đăng
 - Detailed result display
 
 ### Lịch sử
+
 - Timeline của các bài đã đăng
 - Success/Fail statistics
 - Chi tiết từng fanpage
@@ -161,6 +169,7 @@ npm start
 ## 🔧 CHI TIẾT KỸ THUẬT
 
 ### Backend Stack
+
 ```javascript
 - Express.js 4.18.2
 - Multer (file upload)
@@ -171,6 +180,7 @@ npm start
 ```
 
 ### Frontend Stack
+
 ```javascript
 - React 18.2.0
 - Axios (API calls)
@@ -179,6 +189,7 @@ npm start
 ```
 
 ### Facebook Integration
+
 ```
 - Graph API v18.0
 - Endpoints:
@@ -189,6 +200,7 @@ npm start
 ```
 
 ### API Endpoints Created
+
 ```
 GET  /api/health              Health check
 GET  /api/facebook/pages      Get fanpages
@@ -199,18 +211,21 @@ GET  /api/facebook/history    Get history
 ## ✅ TESTING RESULTS
 
 ### Infrastructure Tests
-- ✅ Server starts successfully (Port 5000)
+
+- ✅ Server starts successfully (Port 3001)
 - ✅ Client compiles successfully (Port 3000)
 - ✅ Health endpoint responds
 - ✅ No compilation errors
 
 ### Code Quality
+
 - ✅ No ESLint errors
 - ✅ No CSS syntax errors
 - ✅ Proper code structure
 - ✅ Clean architecture
 
 ### Security
+
 - ✅ Environment variables protected
 - ✅ .gitignore configured
 - ✅ File size limits
@@ -219,6 +234,7 @@ GET  /api/facebook/history    Get history
 - ✅ No hardcoded tokens
 
 ### UI/UX
+
 - ✅ Responsive design
 - ✅ Mobile-friendly
 - ✅ Loading states
@@ -265,11 +281,13 @@ Tất cả tài liệu đã được tạo:
 Để sử dụng hệ thống, bạn CHỈ CẦN:
 
 ### 1️⃣ Lấy Facebook Access Token
+
 - Vào: https://developers.facebook.com/tools/explorer/
 - Generate token với đúng permissions
 - Copy và paste vào `server\.env`
 
 ### 2️⃣ Restart Server (nếu đang chạy)
+
 ```powershell
 # Stop server (Ctrl+C)
 # Start lại
@@ -278,6 +296,7 @@ npm start
 ```
 
 ### 3️⃣ Sử dụng hệ thống
+
 - Mở http://localhost:3000
 - Bắt đầu đăng bài!
 
@@ -312,6 +331,7 @@ Dự án này minh họa:
 Nếu muốn mở rộng, có thể thêm:
 
 ### Features
+
 - [ ] Scheduled posting (đặt lịch đăng)
 - [ ] Post templates (mẫu bài viết)
 - [ ] Bulk upload (nhiều ảnh/video)
@@ -320,6 +340,7 @@ Nếu muốn mở rộng, có thể thêm:
 - [ ] Database integration (MongoDB/PostgreSQL)
 
 ### Improvements
+
 - [ ] Long-lived token auto-refresh
 - [ ] Post preview before publishing
 - [ ] Emoji picker
@@ -328,6 +349,7 @@ Nếu muốn mở rộng, có thể thêm:
 - [ ] Video thumbnails
 
 ### Infrastructure
+
 - [ ] Docker containerization
 - [ ] CI/CD pipeline
 - [ ] Production deployment
@@ -349,6 +371,7 @@ Nếu muốn mở rộng, có thể thêm:
 ### 📞 Support
 
 Nếu gặp vấn đề:
+
 1. Đọc SETUP.md cho hướng dẫn chi tiết
 2. Kiểm tra TESTING.md cho troubleshooting
 3. Xem README.md cho API documentation
@@ -357,6 +380,7 @@ Nếu gặp vấn đề:
 ### 🙏 Lời cảm ơn
 
 Cảm ơn bạn đã tin tưởng! Hệ thống này được phát triển với:
+
 - 🧠 Kiến thức full-stack
 - 💪 Best practices
 - 🔒 Security-first mindset
