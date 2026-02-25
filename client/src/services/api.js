@@ -71,6 +71,16 @@ const api = {
   deleteArticle: (id) => {
     return axios.delete(`${API_BASE_URL}/articles/${id}`);
   },
+
+  // Regenerate article content
+  regenerateArticle: (id) => {
+    return axios.post(`${API_BASE_URL}/articles/${id}/regenerate`);
+  },
+
+  // Update content
+  updateContent: (id, data) => {
+    return axios.put(`${API_BASE_URL}/contents/${id}`, data);
+  },
 };
 
 export default api;

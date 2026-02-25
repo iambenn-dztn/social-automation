@@ -77,6 +77,22 @@ function ContentManagement() {
     }
   };
 
+  const handleRegenerateArticle = async (id) => {
+    if (!window.confirm("Crawl và gen lại nội dung cho bài báo này?")) {
+      return;
+    }
+
+    try {
+      await api.regenerateArticle(id);
+      alert(
+        "Đã bắt đầu crawl và gen lại nội dung. Vui lòng kiểm tra trong vài phút!",
+      );
+    } catch (err) {
+      console.error("Error regenerating article:", err);
+      alert("Không thể gen lại nội dung");
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("vi-VN", {
@@ -204,6 +220,13 @@ function ContentManagement() {
                       </button>
                     </td>
                     <td>
+                      <button
+                        className="btn-regenerate"
+                        onClick={() => handleRegenerateArticle(article.id)}
+                        title="Crawl và gen lại nội dung"
+                      >
+                        🔄 Gen lại
+                      </button>
                       <button
                         className="btn-delete"
                         onClick={() => handleDeleteArticle(article.id)}

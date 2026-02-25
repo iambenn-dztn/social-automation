@@ -168,8 +168,74 @@ const deleteContent = async (req, res) => {
   }
 };
 
+// Update content by ID
+const updateContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, summary, content, hashtags } = req.body;
+    await ensureOutputDir();
+
+    const files = await fs.readdir(OUTPUT_DIR);
+    const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
+    for (const file of jsonFiles) {
+      try {
+        const filePath = path.join(OUTPUT_DIR, file);
+        const data = await fs.readFile(filePath, "utf8");
+        let contents = JSON.parse(data);
+
+        if (Array.isArray(contents)) {
+          const index = contents.findIndex(
+            (item) => item.id === parseInt(id) || item.articleId === id,
+          );
+
+          if (index !== -1) {
+            // Update the item
+            contents[index] = {
+              ...contents[index],
+              title: title || contents[index].title,
+              summary: summary || contents[index].summary,
+              content: content || contents[index].content,
+              hashtags: hashtags || contents[index].hashtags,
+              updatedAt: new Date().toISOString(),
+            };
+
+            // Save back to file
+            await fs.writeFile(
+              filePath,
+              JSON.stringify(contents, null, 2),
+              "utf8",
+            );
+
+            return res.json({
+              success: true,
+              message: "Cập nhật nội dung thành công",
+              content: contents[index],
+            });
+          }
+        }
+      } catch (error) {
+        console.error(`Error processing file ${file}:`, error.message);
+      }
+    }
+
+    res.status(404).json({
+      success: false,
+      message: "Không tìm thấy nội dung",
+    });
+  } catch (error) {
+    console.error("Error updating content:", error);
+    res.status(500).json({
+      success: false,
+      message: "Không thể cập nhật nội dung",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllContents,
   getContentById,
   deleteContent,
+  updateContent,
 };

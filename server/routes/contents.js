@@ -8,6 +8,9 @@ router.get("/", contentController.getAllContents);
 // Get single content by ID
 router.get("/:id", contentController.getContentById);
 
+// Update content
+router.put("/:id", contentController.updateContent);
+
 // Delete content
 router.delete("/:id", contentController.deleteContent);
 

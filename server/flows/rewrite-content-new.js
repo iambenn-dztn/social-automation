@@ -75,60 +75,210 @@ async function downloadImage(imageUrl) {
 }
 
 /**
+ * Lấy ảnh từ bài báo theo từng nguồn cụ thể (CHỈ LẤY 1 ẢNH)
+ * @param {string} url - URL bài báo
+ * @param {object} $ - Cheerio object
+ * @param {string} source - Nguồn báo (vnexpress, dantri, nld, ...)
+ * @returns {Promise<{imageUrl: string|null, localImagePath: string|null}>}
+ */
+async function getImagesFromArticle(url, $, source) {
+  const urlObj = new URL(url);
+
+  console.log(`[📸] Đang lấy ảnh từ nguồn: ${source}`);
+
+  // 1. Ưu tiên: Lấy Open Graph image
+  const ogImage = $('meta[property="og:image"]').attr("content");
+  if (ogImage && ogImage.startsWith("http")) {
+    console.log(`  ✓ og:image: ${ogImage.substring(0, 60)}...`);
+    const localPath = await downloadImage(ogImage);
+    if (localPath) {
+      console.log(`  ✓ Đã tải ảnh về local`);
+      return { imageUrl: ogImage, localImagePath: localPath };
+    }
+  }
+
+  // 2. Logic crawl ảnh riêng cho từng nguồn báo (CHỈ LẤY 1 ẢNH ĐẦU TIÊN)
+  let imageSelectors = [];
+
+  switch (source) {
+    case "vnexpress":
+      imageSelectors = [
+        ".fig-picture img",
+        ".content_detail img",
+        'img[itemprop="contentUrl"]',
+        ".item-news img",
+        "article img",
+      ];
+      break;
+
+    case "dantri":
+      imageSelectors = [
+        ".detail-content img",
+        ".dt-news__content img",
+        ".e-magazine__body img",
+        "article img",
+      ];
+      break;
+
+    case "tuoitre":
+      imageSelectors = [
+        ".detail-content img",
+        ".VCSortableInPreviewMode img",
+        ".content img",
+        "article img",
+      ];
+      break;
+
+    case "nld":
+      imageSelectors = [
+        ".detail-content-body img",
+        ".page-detail-content img",
+        ".content-news-detail img",
+        ".article-body img",
+        "article img",
+      ];
+      break;
+
+    case "thanhnien":
+      imageSelectors = [
+        ".detail-content img",
+        ".content-detail img",
+        ".article__body img",
+        "article img",
+      ];
+      break;
+
+    case "vietnamnet":
+      imageSelectors = [
+        ".ArticleDetail img",
+        ".article-content img",
+        ".maincontent img",
+        "article img",
+      ];
+      break;
+
+    case "zingnews":
+      imageSelectors = [
+        ".article-content img",
+        ".the-article-body img",
+        "article img",
+      ];
+      break;
+
+    default:
+      // Fallback cho các trang khác
+      imageSelectors = [
+        "article img",
+        ".article-content img",
+        ".entry-content img",
+        ".post-content img",
+        ".content img",
+        ".detail-content img",
+        "main img",
+      ];
+  }
+
+  // 3. Lấy ảnh ĐẦU TIÊN hợp lệ từ các selector
+  for (const selector of imageSelectors) {
+    const images = $(selector);
+    
+    for (let i = 0; i < images.length; i++) {
+      const element = images[i];
+      // Thử nhiều thuộc tính khác nhau
+      const imgUrl =
+        $(element).attr("data-src") ||
+        $(element).attr("data-original") ||
+        $(element).attr("data-lazy-src") ||
+        $(element).attr("src") ||
+        $(element).attr("data-desktop-src") ||
+        $(element).attr("srcset")?.split(" ")[0]; // Lấy URL đầu tiên từ srcset
+
+      if (imgUrl) {
+        // Tạo absolute URL nếu là relative path
+        let absoluteUrl = imgUrl;
+        if (imgUrl.startsWith("//")) {
+          absoluteUrl = "https:" + imgUrl;
+        } else if (imgUrl.startsWith("/")) {
+          absoluteUrl = urlObj.origin + imgUrl;
+        } else if (!imgUrl.startsWith("http")) {
+          try {
+            absoluteUrl = new URL(imgUrl, url).href;
+          } catch (e) {
+            console.log(`  ✗ URL không hợp lệ: ${imgUrl}`);
+            continue;
+          }
+        }
+
+        // Filter: chỉ lấy ảnh hợp lệ, không phải icon/logo
+        if (
+          absoluteUrl.startsWith("http") &&
+          !absoluteUrl.includes("logo") &&
+          !absoluteUrl.includes("icon") &&
+          !absoluteUrl.includes("avatar") &&
+          !absoluteUrl.includes("menu") &&
+          !absoluteUrl.includes("banner") &&
+          !absoluteUrl.includes("ads") &&
+          !absoluteUrl.match(/\.(svg)$/i) && // Bỏ SVG (thường là icon)
+          absoluteUrl.match(/\.(jpg|jpeg|png|gif|webp)/i) // Chỉ lấy ảnh thật
+        ) {
+          console.log(`  ✓ Tìm thấy ảnh: ${absoluteUrl.substring(0, 60)}...`);
+          
+          // Download ảnh về local
+          const localPath = await downloadImage(absoluteUrl);
+          if (localPath) {
+            console.log(`  ✓ Đã tải ảnh về local`);
+            return { imageUrl: absoluteUrl, localImagePath: localPath };
+          }
+        }
+      }
+    }
+  }
+
+  console.log(`  ✗ Không tìm thấy ảnh phù hợp`);
+  return { imageUrl: null, localImagePath: null };
+}
+
+/**
  * Hàm cào dữ liệu từ một trang báo
- * LƯU Ý: Bạn cần F12 trang báo mục tiêu để sửa đổi class css cho đúng
+ * Hỗ trợ đa nguồn: VnExpress, Dân Trí, Tuổi Trẻ, NLD, v.v.
  */
 async function crawlArticle(url) {
   try {
     console.log(`[1] Đang cào dữ liệu từ: ${url}`);
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+    });
     const $ = cheerio.load(data);
-
-    // TODO: Sửa các selector ('h1', 'article p') cho khớp với trang báo bạn muốn cào
-    const title = $("h1").text().trim();
-
-    // Lấy ảnh từ nội dung bài viết (thay vì og:image)
-    // Tìm ảnh trong các selector phổ biến của VnExpress
-    let imageUrl = null;
-
-    // Thử lấy ảnh từ các selector phổ biến trong nội dung bài viết
-    const imageSelectors = [
-      "article img", // Ảnh trong thẻ article
-      ".container img", // Ảnh trong container
-      ".fig-picture img", // VnExpress dùng class này
-      ".Main-Content img", // Class phổ biến
-      'img[itemprop="contentUrl"]', // Ảnh có itemprop
-      "img[data-src]", // Ảnh lazy load
-      "img", // Fallback: ảnh bất kỳ
-    ];
-
-    for (const selector of imageSelectors) {
-      const imgElement = $(selector).first();
-      if (imgElement.length > 0) {
-        // Thử lấy từ các thuộc tính khác nhau
-        imageUrl =
-          imgElement.attr("data-src") ||
-          imgElement.attr("src") ||
-          imgElement.attr("data-original");
-
-        if (imageUrl && imageUrl.startsWith("http")) {
-          break; // Tìm thấy URL hợp lệ thì dừng
-        }
-      }
-    }
-
-    console.log(`Ảnh đại diện: ${imageUrl || "Không tìm thấy ảnh"}`);
 
     // Lấy nguồn bài báo (domain name)
     const urlObj = new URL(url);
-    const source = urlObj.hostname.replace("www.", "").split('.')[0];
-    console.log(`Nguồn: ${source}`);
+    const source = urlObj.hostname.replace("www.", "").split(".")[0];
+    console.log(`[📰] Nguồn: ${source}`);
+
+    // Lấy tiêu đề
+    const title =
+      $("h1").first().text().trim() ||
+      $('meta[property="og:title"]').attr("content") ||
+      $("title").text().trim();
+
+    // Lấy ảnh (gọi hàm riêng) - CHỈ LẤY 1 ẢNH
+    const { imageUrl, localImagePath } = await getImagesFromArticle(
+      url,
+      $,
+      source,
+    );
 
     // Lấy toàn bộ text trong các thẻ <p> thuộc nội dung bài viết
     const paragraphs = [];
     $("p").each((index, element) => {
       const text = $(element).text().trim();
-      if (text) paragraphs.push(text);
+      // Lọc bỏ các đoạn quá ngắn (có thể là menu, footer)
+      if (text && text.length > 30) {
+        paragraphs.push(text);
+      }
     });
 
     const content = paragraphs.join("\n\n");
@@ -139,17 +289,21 @@ async function crawlArticle(url) {
       );
     }
 
-    console.log(`[2] Cào thành công! Tiêu đề: ${title}`);
+    console.log(`[2] ✅ Cào thành công!`);
+    console.log(`  - Tiêu đề: ${title.substring(0, 60)}...`);
+    console.log(`  - Nội dung: ${content.length} ký tự`);
+    console.log(`  - Ảnh: ${imageUrl ? '1 ảnh' : 'Không có'}`);
 
-    // Download ảnh về local
-    let localImagePath = null;
-    if (imageUrl) {
-      localImagePath = await downloadImage(imageUrl);
-    }
-
-    return { title, content, imageUrl, localImagePath, source, sourceUrl: url };
+    return {
+      title,
+      content,
+      imageUrl, // URL ảnh duy nhất
+      localImagePath, // Đường dẫn local duy nhất
+      source,
+      sourceUrl: url,
+    };
   } catch (error) {
-    console.error("Lỗi khi cào bài viết:", error.message);
+    console.error("❌ Lỗi khi cào bài viết:", error.message);
     return null;
   }
 }
@@ -244,8 +398,8 @@ async function rewriteArticle(articleId, targetUrl) {
       const finalData = {
         ...rewrittenData,
         articleId: articleId, // ID của bài báo gốc từ database
-        imageUrl: article.imageUrl,
-        localImagePath: article.localImagePath, // Đường dẫn ảnh local
+        imageUrl: article.imageUrl, // URL ảnh duy nhất
+        localImagePath: article.localImagePath, // Đường dẫn ảnh local duy nhất
         source: article.source,
         sourceUrl: article.sourceUrl,
       };
@@ -265,7 +419,7 @@ async function rewriteArticle(articleId, targetUrl) {
         finalData.content?.length || 0,
         "ký tự",
       );
-      console.log("- Ảnh đại diện:", finalData.imageUrl || "Không có");
+      console.log("- Ảnh:", finalData.imageUrl ? 'Có' : 'Không có');
       console.log("- Nguồn:", finalData.source);
       console.log("- URL gốc:", finalData.sourceUrl);
 

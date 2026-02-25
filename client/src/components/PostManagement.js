@@ -12,6 +12,13 @@ function PostManagement() {
   const [postingContent, setPostingContent] = useState(null);
   const [selectedPages, setSelectedPages] = useState([]);
   const [posting, setPosting] = useState(false);
+  const [editingContent, setEditingContent] = useState(null);
+  const [editForm, setEditForm] = useState({
+    title: "",
+    summary: "",
+    content: "",
+    hashtags: "",
+  });
 
   useEffect(() => {
     fetchContents();
@@ -152,6 +159,51 @@ function PostManagement() {
     }
   };
 
+  const handleOpenEditModal = (content) => {
+    setEditingContent(content);
+    setEditForm({
+      title: content.title || "",
+      summary: content.summary || "",
+      content: content.content || "",
+      hashtags: content.hashtags?.join(", ") || "",
+    });
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editForm.title.trim()) {
+      alert("Vui lòng nhập tiêu đề");
+      return;
+    }
+
+    try {
+      const hashtagsArray = editForm.hashtags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag);
+
+      const updateData = {
+        title: editForm.title,
+        summary: editForm.summary,
+        content: editForm.content,
+        hashtags: hashtagsArray,
+      };
+
+      const response = await axios.put(
+        `${API_BASE_URL}/contents/${editingContent.id || editingContent.articleId}`,
+        updateData,
+      );
+
+      if (response.data.success) {
+        alert("Cập nhật thành công");
+        setEditingContent(null);
+        fetchContents();
+      }
+    } catch (error) {
+      console.error("Error updating content:", error);
+      alert("Không thể cập nhật nội dung");
+    }
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleString("vi-VN");
@@ -222,6 +274,13 @@ function PostManagement() {
                           title="Xem trước"
                         >
                           👁️
+                        </button>
+                        <button
+                          className="btn-edit"
+                          onClick={() => handleOpenEditModal(content)}
+                          title="Sửa"
+                        >
+                          ✏️
                         </button>
                         <button
                           className="btn-post"
@@ -320,6 +379,89 @@ function PostManagement() {
                   />
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {editingContent && (
+        <div className="modal-overlay" onClick={() => setEditingContent(null)}>
+          <div
+            className="modal-content edit-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-header">
+              <h3>✏️ Chỉnh sửa nội dung</h3>
+              <button
+                className="modal-close"
+                onClick={() => setEditingContent(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="edit-form">
+                <div className="form-group">
+                  <label>📌 Tiêu đề:</label>
+                  <input
+                    type="text"
+                    value={editForm.title}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, title: e.target.value })
+                    }
+                    placeholder="Nhập tiêu đề..."
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>📝 Tóm tắt:</label>
+                  <textarea
+                    value={editForm.summary}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, summary: e.target.value })
+                    }
+                    placeholder="Nhập tóm tắt..."
+                    rows="3"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>📄 Nội dung:</label>
+                  <textarea
+                    value={editForm.content}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, content: e.target.value })
+                    }
+                    placeholder="Nhập nội dung..."
+                    rows="6"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>🏷️ Hashtags (phân cách bằng dấu phẩy):</label>
+                  <input
+                    type="text"
+                    value={editForm.hashtags}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, hashtags: e.target.value })
+                    }
+                    placeholder="React, JavaScript, WebDev"
+                  />
+                </div>
+              </div>
+
+              <div className="modal-actions">
+                <button
+                  className="btn-cancel"
+                  onClick={() => setEditingContent(null)}
+                >
+                  Hủy
+                </button>
+                <button className="btn-confirm" onClick={handleSaveEdit}>
+                  💾 Lưu thay đổi
+                </button>
+              </div>
             </div>
           </div>
         </div>

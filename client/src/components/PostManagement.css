@@ -117,6 +117,11 @@
   transform: scale(1.1);
 }
 
+.btn-edit:hover {
+  background: #fff8e1;
+  transform: scale(1.1);
+}
+
 .btn-post:hover {
   background: #fff3e0;
   transform: scale(1.1);
@@ -157,6 +162,10 @@
 
 .post-modal {
   max-width: 600px;
+}
+
+.edit-modal {
+  max-width: 700px;
 }
 
 .modal-header {
@@ -200,6 +209,47 @@
 
 .modal-body {
   padding: 1.5rem;
+}
+
+/* Edit Modal */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.edit-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form .form-group label {
+  margin-bottom: 0.5rem;
+  color: var(--primary-orange);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.edit-form .form-group input,
+.edit-form .form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.edit-form .form-group input:focus,
+.edit-form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.edit-form .form-group textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 /* Preview Modal */

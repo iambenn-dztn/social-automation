@@ -201,9 +201,46 @@ const deleteArticle = async (req, res) => {
   }
 };
 
+// Regenerate content for an existing article
+const regenerateArticle = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const articles = await readArticles();
+    const article = articles.find((a) => a.id === id);
+
+    if (!article) {
+      return res.status(404).json({
+        success: false,
+        message: "Không tìm thấy bài báo",
+      });
+    }
+
+    // Trigger content rewriting (async, don't wait for completion)
+    rewriteArticle(article.id, article.link).catch((err) => {
+      console.error("Error in background rewrite:", err);
+    });
+
+    res.json({
+      success: true,
+      message:
+        "Đã bắt đầu crawl và gen lại nội dung. Vui lòng kiểm tra trong vài phút.",
+      article: article,
+    });
+  } catch (error) {
+    console.error("Error regenerating article:", error);
+    res.status(500).json({
+      success: false,
+      message: "Không thể gen lại nội dung",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getArticles,
   addArticle,
   updateArticleStatus,
   deleteArticle,
+  regenerateArticle,
 };
