@@ -1,5 +1,7 @@
 const fs = require("fs").promises;
 const path = require("path");
+const crypto = require("crypto");
+const { rewriteArticle } = require("../flows/rewrite-content-new");
 
 const ARTICLES_FILE = path.join(__dirname, "../data/articles.json");
 
@@ -34,9 +36,9 @@ const writeArticles = async (articles) => {
   await fs.writeFile(ARTICLES_FILE, JSON.stringify(articles, null, 2), "utf8");
 };
 
-// Generate unique ID
+// Generate unique ID using UUID
 const generateId = () => {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  return crypto.randomUUID();
 };
 
 // Get all articles
@@ -101,6 +103,11 @@ const addArticle = async (req, res) => {
 
     articles.push(newArticle);
     await writeArticles(articles);
+
+    // Trigger content rewriting after adding new article (async, don't wait)
+    rewriteArticle(newArticle.id, newArticle.link).catch((err) => {
+      console.error("Error in background rewrite:", err);
+    });
 
     res.json({
       success: true,

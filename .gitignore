@@ -7,3 +7,25 @@ dist/
 coverage/
 .vscode/
 .idea/
+
+# Data folders - contains user-generated content
+data/
+server/data/
+server/data/**
+client/data/
+
+# Upload folders
+uploads/
+server/uploads/
+
+# Output folders
+output/
+server/data/output/
+
+# Image folders
+server/data/images/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3

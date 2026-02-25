@@ -1,0 +1,175 @@
+const fs = require("fs").promises;
+const path = require("path");
+
+const OUTPUT_DIR = path.join(__dirname, "../data/output");
+
+// Ensure output directory exists
+const ensureOutputDir = async () => {
+  try {
+    await fs.access(OUTPUT_DIR);
+  } catch {
+    await fs.mkdir(OUTPUT_DIR, { recursive: true });
+  }
+};
+
+// Get all content from output files
+const getAllContents = async (req, res) => {
+  try {
+    await ensureOutputDir();
+    const files = await fs.readdir(OUTPUT_DIR);
+    const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
+    let allContents = [];
+
+    // Read all JSON files
+    for (const file of jsonFiles) {
+      try {
+        const filePath = path.join(OUTPUT_DIR, file);
+        const data = await fs.readFile(filePath, "utf8");
+        const contents = JSON.parse(data);
+
+        // If it's an array, add all items, otherwise add single object
+        if (Array.isArray(contents)) {
+          allContents = allContents.concat(
+            contents.map((item) => ({
+              ...item,
+              fileName: file,
+            })),
+          );
+        } else {
+          allContents.push({
+            ...contents,
+            fileName: file,
+          });
+        }
+      } catch (error) {
+        console.error(`Error reading file ${file}:`, error.message);
+      }
+    }
+
+    // Sort by createdAt descending
+    allContents.sort((a, b) => {
+      const dateA = new Date(a.createdAt || 0);
+      const dateB = new Date(b.createdAt || 0);
+      return dateB - dateA;
+    });
+
+    res.json({
+      success: true,
+      contents: allContents,
+      total: allContents.length,
+    });
+  } catch (error) {
+    console.error("Error getting contents:", error);
+    res.status(500).json({
+      success: false,
+      message: "Không thể lấy danh sách nội dung",
+      error: error.message,
+    });
+  }
+};
+
+// Get single content by ID
+const getContentById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ensureOutputDir();
+
+    const files = await fs.readdir(OUTPUT_DIR);
+    const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
+    for (const file of jsonFiles) {
+      try {
+        const filePath = path.join(OUTPUT_DIR, file);
+        const data = await fs.readFile(filePath, "utf8");
+        const contents = JSON.parse(data);
+
+        const contentArray = Array.isArray(contents) ? contents : [contents];
+        const found = contentArray.find(
+          (item) => item.id === parseInt(id) || item.articleId === id,
+        );
+
+        if (found) {
+          return res.json({
+            success: true,
+            content: found,
+          });
+        }
+      } catch (error) {
+        console.error(`Error reading file ${file}:`, error.message);
+      }
+    }
+
+    res.status(404).json({
+      success: false,
+      message: "Không tìm thấy nội dung",
+    });
+  } catch (error) {
+    console.error("Error getting content by ID:", error);
+    res.status(500).json({
+      success: false,
+      message: "Không thể lấy nội dung",
+      error: error.message,
+    });
+  }
+};
+
+// Delete content by ID
+const deleteContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ensureOutputDir();
+
+    const files = await fs.readdir(OUTPUT_DIR);
+    const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
+    for (const file of jsonFiles) {
+      try {
+        const filePath = path.join(OUTPUT_DIR, file);
+        const data = await fs.readFile(filePath, "utf8");
+        let contents = JSON.parse(data);
+
+        if (Array.isArray(contents)) {
+          const originalLength = contents.length;
+          contents = contents.filter(
+            (item) => item.id !== parseInt(id) && item.articleId !== id,
+          );
+
+          if (contents.length < originalLength) {
+            // Found and removed the item
+            await fs.writeFile(
+              filePath,
+              JSON.stringify(contents, null, 2),
+              "utf8",
+            );
+
+            return res.json({
+              success: true,
+              message: "Xóa nội dung thành công",
+            });
+          }
+        }
+      } catch (error) {
+        console.error(`Error processing file ${file}:`, error.message);
+      }
+    }
+
+    res.status(404).json({
+      success: false,
+      message: "Không tìm thấy nội dung",
+    });
+  } catch (error) {
+    console.error("Error deleting content:", error);
+    res.status(500).json({
+      success: false,
+      message: "Không thể xóa nội dung",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = {
+  getAllContents,
+  getContentById,
+  deleteContent,
+};

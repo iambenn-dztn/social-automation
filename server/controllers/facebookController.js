@@ -58,7 +58,7 @@ exports.getPages = async (req, res) => {
  */
 exports.postToPages = async (req, res) => {
   try {
-    const { message, pageIds } = req.body;
+    const { message, channels, pageId, link, localImagePath } = req.body;
     const mediaFile = req.file;
 
     if (!message) {
@@ -68,10 +68,31 @@ exports.postToPages = async (req, res) => {
       });
     }
 
-    if (!pageIds || pageIds.length === 0) {
+    // Support both old format (pageId/pageIds) and new format (channels)
+    let channelsList = [];
+
+    if (channels) {
+      // New format: channels array
+      channelsList =
+        typeof channels === "string" ? JSON.parse(channels) : channels;
+    } else if (pageId) {
+      // Old format: single pageId
+      channelsList = [{ channelId: pageId, platform: "facebook" }];
+    } else if (req.body.pageIds) {
+      // Old format: pageIds array
+      const pageIds = Array.isArray(req.body.pageIds)
+        ? req.body.pageIds
+        : JSON.parse(req.body.pageIds);
+      channelsList = pageIds.map((id) => ({
+        channelId: id,
+        platform: "facebook",
+      }));
+    }
+
+    if (channelsList.length === 0) {
       return res.status(400).json({
         error: true,
-        message: "At least one page ID is required",
+        message: "At least one page/channel is required",
       });
     }
 
@@ -84,9 +105,6 @@ exports.postToPages = async (req, res) => {
       });
     }
 
-    // Parse pageIds if it's a string
-    let pageIdsArray = Array.isArray(pageIds) ? pageIds : JSON.parse(pageIds);
-
     // Get page access tokens
     const pagesResponse = await axios.get(`${FACEBOOK_GRAPH_API}/me/accounts`, {
       params: {
@@ -98,15 +116,18 @@ exports.postToPages = async (req, res) => {
     const allPages = pagesResponse.data.data;
     const results = [];
 
-    // Post to each selected page
-    for (const pageId of pageIdsArray) {
+    // Post to each selected page/channel
+    for (const channel of channelsList) {
+      const pageId = channel.channelId || channel.pageId;
+
       try {
         const page = allPages.find((p) => p.id === pageId);
 
         if (!page) {
           results.push({
-            pageId,
-            pageName: "Unknown",
+            platform: "facebook",
+            channelId: pageId,
+            channelName: channel.channelName || "Unknown",
             success: false,
             error: "Page not found or no access",
           });
@@ -114,15 +135,36 @@ exports.postToPages = async (req, res) => {
         }
 
         let postId;
+        let postParams = {
+          message: message,
+          access_token: page.access_token,
+        };
 
-        if (mediaFile) {
+        // Add link if provided
+        if (link) {
+          postParams.link = link;
+        }
+
+        // Determine which image to use
+        let imageToUpload = null;
+        if (localImagePath && fs.existsSync(localImagePath)) {
+          // Use local image from crawled data
+          imageToUpload = localImagePath;
+          console.log(`Using local image: ${localImagePath}`);
+        } else if (mediaFile) {
+          // Use uploaded media file
+          imageToUpload = mediaFile.path;
+          console.log(`Using uploaded file: ${mediaFile.path}`);
+        }
+
+        if (imageToUpload) {
           // Determine if it's a video or photo
-          const isVideo = /\.(mp4|mov|avi)$/i.test(mediaFile.filename);
+          const isVideo = /\.(mp4|mov|avi)$/i.test(imageToUpload);
 
           if (isVideo) {
             // Upload video
             const formData = new FormData();
-            formData.append("file", fs.createReadStream(mediaFile.path));
+            formData.append("file", fs.createReadStream(imageToUpload));
             formData.append("description", message);
             formData.append("access_token", page.access_token);
 
@@ -139,7 +181,7 @@ exports.postToPages = async (req, res) => {
           } else {
             // Upload photo
             const formData = new FormData();
-            formData.append("source", fs.createReadStream(mediaFile.path));
+            formData.append("source", fs.createReadStream(imageToUpload));
             formData.append("message", message);
             formData.append("access_token", page.access_token);
 
@@ -153,20 +195,18 @@ exports.postToPages = async (req, res) => {
             postId = photoResponse.data.id;
           }
         } else {
-          // Post text only
+          // Post text only (or with link)
           const response = await axios.post(
             `${FACEBOOK_GRAPH_API}/${pageId}/feed`,
-            {
-              message: message,
-              access_token: page.access_token,
-            },
+            postParams,
           );
           postId = response.data.id;
         }
 
         results.push({
-          pageId: page.id,
-          pageName: page.name,
+          platform: "facebook",
+          channelId: page.id,
+          channelName: page.name,
           success: true,
           postId: postId,
         });
@@ -176,8 +216,12 @@ exports.postToPages = async (req, res) => {
           error.response?.data || error.message,
         );
         results.push({
-          pageId,
-          pageName: allPages.find((p) => p.id === pageId)?.name || "Unknown",
+          platform: "facebook",
+          channelId: pageId,
+          channelName:
+            channel.channelName ||
+            allPages.find((p) => p.id === pageId)?.name ||
+            "Unknown",
           success: false,
           error: error.response?.data?.error?.message || error.message,
         });
@@ -213,7 +257,7 @@ exports.postToPages = async (req, res) => {
 
     res.json({
       success: true,
-      message: `Posted to ${successCount} page(s) successfully${failCount > 0 ? `, ${failCount} failed` : ""}`,
+      message: `Posted to ${successCount} channel(s) successfully${failCount > 0 ? `, ${failCount} failed` : ""}`,
       results: results,
       summary: {
         total: results.length,
@@ -236,7 +280,7 @@ exports.postToPages = async (req, res) => {
 
     res.status(500).json({
       error: true,
-      message: "Failed to post to pages",
+      message: "Failed to post to channels",
       details: error.response?.data?.error?.message || error.message,
     });
   }

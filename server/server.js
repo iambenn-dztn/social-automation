@@ -12,6 +12,7 @@ dotenv.config();
 const facebookRoutes = require("./routes/facebook");
 const platformRoutes = require("./routes/platform");
 const articleRoutes = require("./routes/articles");
+const contentRoutes = require("./routes/contents");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -30,6 +31,7 @@ if (!fs.existsSync(uploadsDir)) {
 // Routes
 app.use("/api/facebook", facebookRoutes); // Legacy Facebook-only rout
 app.use("/api/articles", articleRoutes); // Article management routeses
+app.use("/api/contents", contentRoutes); // Rewritten content management
 app.use("/api/platform", platformRoutes); // New multi-platform routes
 
 // Health check endpoint
