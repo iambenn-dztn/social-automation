@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./PostManagement.css";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import "./PostManagement.css";
 
-const API_BASE_URL = "http://localhost:3001/api";
+const API_BASE_URL = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api`;
 
 function PostManagement() {
   const [contents, setContents] = useState([]);
@@ -32,6 +32,7 @@ function PostManagement() {
       if (response.data.success) {
         setContents(response.data.contents);
       }
+      console.log("Fetched contents:", response.data.contents);
     } catch (error) {
       console.error("Error fetching contents:", error);
       alert("Không thể tải danh sách nội dung");
@@ -124,9 +125,6 @@ function PostManagement() {
       );
 
       if (response.data.success) {
-        const successCount = response.data.summary.successful;
-        const totalCount = response.data.summary.total;
-        alert(`Đã đăng thành công lên ${successCount}/${totalCount} fanpage`);
         setPostingContent(null);
         setSelectedPages([]);
       } else {
@@ -141,16 +139,11 @@ function PostManagement() {
   };
 
   const handleDelete = async (content) => {
-    if (!window.confirm("Bạn có chắc muốn xóa nội dung này?")) {
-      return;
-    }
-
     try {
       const response = await axios.delete(
         `${API_BASE_URL}/contents/${content.id || content.articleId}`,
       );
       if (response.data.success) {
-        alert("Xóa thành công");
         fetchContents();
       }
     } catch (error) {
@@ -194,7 +187,6 @@ function PostManagement() {
       );
 
       if (response.data.success) {
-        alert("Cập nhật thành công");
         setEditingContent(null);
         fetchContents();
       }

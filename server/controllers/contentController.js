@@ -233,9 +233,82 @@ const updateContent = async (req, res) => {
   }
 };
 
+// Update content status by ID (internal use)
+const updateContentStatus = async (contentId, status) => {
+  await ensureOutputDir();
+  const files = await fs.readdir(OUTPUT_DIR);
+  const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
+  for (const file of jsonFiles) {
+    try {
+      const filePath = path.join(OUTPUT_DIR, file);
+      const data = await fs.readFile(filePath, "utf8");
+      let contents = JSON.parse(data);
+
+      if (Array.isArray(contents)) {
+        const index = contents.findIndex(
+          (item) =>
+            item.id === parseInt(contentId) || item.articleId === contentId,
+        );
+
+        if (index !== -1) {
+          contents[index].status = status;
+          contents[index].updatedAt = new Date().toISOString();
+          if (status === "posted") {
+            contents[index].postedAt = new Date().toISOString();
+          }
+
+          await fs.writeFile(
+            filePath,
+            JSON.stringify(contents, null, 2),
+            "utf8",
+          );
+          return true;
+        }
+      }
+    } catch (error) {
+      console.error(`Error processing file ${file}:`, error.message);
+    }
+  }
+  return false;
+};
+
+// Get all pending contents (internal use)
+const getPendingContents = async () => {
+  await ensureOutputDir();
+  const files = await fs.readdir(OUTPUT_DIR);
+  const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
+  let pendingContents = [];
+
+  for (const file of jsonFiles) {
+    try {
+      const filePath = path.join(OUTPUT_DIR, file);
+      const data = await fs.readFile(filePath, "utf8");
+      const contents = JSON.parse(data);
+
+      const contentArray = Array.isArray(contents) ? contents : [contents];
+      const pending = contentArray.filter((item) => item.status === "pending");
+
+      pendingContents = pendingContents.concat(
+        pending.map((item) => ({
+          ...item,
+          fileName: file,
+        })),
+      );
+    } catch (error) {
+      console.error(`Error reading file ${file}:`, error.message);
+    }
+  }
+
+  return pendingContents;
+};
+
 module.exports = {
   getAllContents,
   getContentById,
   deleteContent,
   updateContent,
+  updateContentStatus,
+  getPendingContents,
 };

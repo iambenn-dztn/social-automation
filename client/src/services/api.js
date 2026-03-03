@@ -77,9 +77,51 @@ const api = {
     return axios.post(`${API_BASE_URL}/articles/${id}/regenerate`);
   },
 
+  // ========== Content Management APIs ==========
+  // Get all contents
+  getAllContents: () => {
+    return axios.get(`${API_BASE_URL}/contents`);
+  },
+
   // Update content
   updateContent: (id, data) => {
     return axios.put(`${API_BASE_URL}/contents/${id}`, data);
+  },
+
+  // ========== Auto-Post APIs ==========
+  // Get auto-post status
+  getAutoPostStatus: () => {
+    return axios.get(`${API_BASE_URL}/auto-post/status`);
+  },
+
+  // Get auto-post configuration
+  getAutoPostConfig: () => {
+    return axios.get(`${API_BASE_URL}/auto-post/config`);
+  },
+
+  // Update auto-post configuration
+  updateAutoPostConfig: (data) => {
+    return axios.post(`${API_BASE_URL}/auto-post/config`, data);
+  },
+
+  // Enable auto-posting
+  enableAutoPost: () => {
+    return axios.post(`${API_BASE_URL}/auto-post/enable`);
+  },
+
+  // Disable auto-posting
+  disableAutoPost: () => {
+    return axios.post(`${API_BASE_URL}/auto-post/disable`);
+  },
+
+  // Manually trigger auto-post job
+  runAutoPostNow: () => {
+    return axios.post(`${API_BASE_URL}/auto-post/run-now`);
+  },
+
+  // Get auto-post history
+  getAutoPostHistory: () => {
+    return axios.get(`${API_BASE_URL}/auto-post/history`);
   },
 };
 

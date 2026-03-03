@@ -131,12 +131,12 @@ const updateArticleStatus = async (req, res) => {
     const { status } = req.body;
 
     // Validate status
-    const validStatuses = ["pending", "active", "inactive"];
+    const validStatuses = ["pending", "active", "inactive", "posted"];
     if (!status || !validStatuses.includes(status)) {
       return res.status(400).json({
         success: false,
         message:
-          "Trạng thái không hợp lệ. Chỉ chấp nhận: pending, active, inactive",
+          "Trạng thái không hợp lệ. Chỉ chấp nhận: pending, active, inactive, posted",
       });
     }
 

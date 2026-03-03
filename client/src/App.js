@@ -6,6 +6,7 @@ import SideNav from "./components/SideNav";
 import PostPage from "./pages/PostPage";
 import ContentPage from "./pages/ContentPage";
 import PostManagementPage from "./pages/PostManagementPage";
+import AutoPostPage from "./pages/AutoPostPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/" element={<PostPage />} />
               <Route path="/content" element={<ContentPage />} />
               <Route path="/post-management" element={<PostManagementPage />} />
+              <Route path="/auto-post" element={<AutoPostPage />} />
             </Routes>
           </div>
         </div>

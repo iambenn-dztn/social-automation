@@ -12,6 +12,12 @@ function SideNav() {
       label: "Quản Lý Bài đăng",
       icon: "📊",
     },
+    {
+      id: "auto-post",
+      path: "/auto-post",
+      label: "Tự động đăng",
+      icon: "⏰",
+    },
   ];
 
   return (

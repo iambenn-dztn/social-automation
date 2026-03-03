@@ -46,10 +46,6 @@ function ContentManagement() {
   };
 
   const handleDeleteArticle = async (id) => {
-    if (!window.confirm("Bạn có chắc muốn xóa bài báo này?")) {
-      return;
-    }
-
     try {
       await api.deleteArticle(id);
       fetchArticles();
@@ -78,15 +74,8 @@ function ContentManagement() {
   };
 
   const handleRegenerateArticle = async (id) => {
-    if (!window.confirm("Crawl và gen lại nội dung cho bài báo này?")) {
-      return;
-    }
-
     try {
       await api.regenerateArticle(id);
-      alert(
-        "Đã bắt đầu crawl và gen lại nội dung. Vui lòng kiểm tra trong vài phút!",
-      );
     } catch (err) {
       console.error("Error regenerating article:", err);
       alert("Không thể gen lại nội dung");

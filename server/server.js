@@ -13,6 +13,10 @@ const facebookRoutes = require("./routes/facebook");
 const platformRoutes = require("./routes/platform");
 const articleRoutes = require("./routes/articles");
 const contentRoutes = require("./routes/contents");
+const autoPostRoutes = require("./routes/autoPost");
+
+// Import auto-post scheduler
+const autoPost = require("./flows/auto-post");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,6 +37,7 @@ app.use("/api/facebook", facebookRoutes); // Legacy Facebook-only rout
 app.use("/api/articles", articleRoutes); // Article management routeses
 app.use("/api/contents", contentRoutes); // Rewritten content management
 app.use("/api/platform", platformRoutes); // New multi-platform routes
+app.use("/api/auto-post", autoPostRoutes); // Auto-post scheduler management
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
@@ -54,7 +59,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`✅ Multi-Platform Automation Server is running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
   console.log(`🌐 Supported platforms: Facebook, Shopee`);
@@ -65,4 +70,22 @@ app.listen(PORT, () => {
   console.log(`   - GET  /api/articles            (Get articles)`);
   console.log(`   - POST /api/articles            (Add article)`);
   console.log(`   - GET  /api/platform/history    (Get history)`);
+  console.log(`   - GET  /api/auto-post/status    (Get auto-post status)`);
+  console.log(`   - POST /api/auto-post/enable    (Enable auto-post)`);
+  console.log(`   - POST /api/auto-post/disable   (Disable auto-post)`);
+
+  // Initialize auto-post scheduler if enabled
+  try {
+    const config = await autoPost.readConfig();
+    if (config.enabled) {
+      await autoPost.startScheduler();
+      console.log(
+        `⏰ Auto-post scheduler started (interval: ${config.intervalMinutes} minutes)`,
+      );
+    } else {
+      console.log(`⏰ Auto-post scheduler is disabled`);
+    }
+  } catch (error) {
+    console.error("❌ Error initializing auto-post scheduler:", error.message);
+  }
 });

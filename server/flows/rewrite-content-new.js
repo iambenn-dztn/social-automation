@@ -181,7 +181,7 @@ async function getImagesFromArticle(url, $, source) {
   // 3. Lấy ảnh ĐẦU TIÊN hợp lệ từ các selector
   for (const selector of imageSelectors) {
     const images = $(selector);
-    
+
     for (let i = 0; i < images.length; i++) {
       const element = images[i];
       // Thử nhiều thuộc tính khác nhau
@@ -222,7 +222,7 @@ async function getImagesFromArticle(url, $, source) {
           absoluteUrl.match(/\.(jpg|jpeg|png|gif|webp)/i) // Chỉ lấy ảnh thật
         ) {
           console.log(`  ✓ Tìm thấy ảnh: ${absoluteUrl.substring(0, 60)}...`);
-          
+
           // Download ảnh về local
           const localPath = await downloadImage(absoluteUrl);
           if (localPath) {
@@ -292,7 +292,7 @@ async function crawlArticle(url) {
     console.log(`[2] ✅ Cào thành công!`);
     console.log(`  - Tiêu đề: ${title.substring(0, 60)}...`);
     console.log(`  - Nội dung: ${content.length} ký tự`);
-    console.log(`  - Ảnh: ${imageUrl ? '1 ảnh' : 'Không có'}`);
+    console.log(`  - Ảnh: ${imageUrl ? "1 ảnh" : "Không có"}`);
 
     return {
       title,
@@ -402,6 +402,7 @@ async function rewriteArticle(articleId, targetUrl) {
         localImagePath: article.localImagePath, // Đường dẫn ảnh local duy nhất
         source: article.source,
         sourceUrl: article.sourceUrl,
+        status: "pending", // Trạng thái mặc định khi gen xong
       };
 
       console.log("\n================ KẾT QUẢ JSON TỪ LLM ================\n");
@@ -419,7 +420,7 @@ async function rewriteArticle(articleId, targetUrl) {
         finalData.content?.length || 0,
         "ký tự",
       );
-      console.log("- Ảnh:", finalData.imageUrl ? 'Có' : 'Không có');
+      console.log("- Ảnh:", finalData.imageUrl ? "Có" : "Không có");
       console.log("- Nguồn:", finalData.source);
       console.log("- URL gốc:", finalData.sourceUrl);
 
