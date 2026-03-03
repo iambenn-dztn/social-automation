@@ -18,6 +18,12 @@ function SideNav() {
       label: "Tự động đăng",
       icon: "⏰",
     },
+    {
+      id: "token",
+      path: "/token",
+      label: "Quản lý Token",
+      icon: "🔑",
+    },
   ];
 
   return (

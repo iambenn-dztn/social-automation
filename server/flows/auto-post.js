@@ -6,6 +6,7 @@ const {
   updateContentStatus,
 } = require("../controllers/contentController");
 const platformFactory = require("../platforms");
+const { getFacebookToken } = require("../utils/facebookConfig");
 
 const CONFIG_FILE = path.join(__dirname, "../data/auto-post-config.json");
 const HISTORY_FILE = path.join(__dirname, "../data/auto-post-history.json");
@@ -138,7 +139,7 @@ const executeAutoPost = async () => {
     // Get platform configs from environment
     const platformConfigs = {
       facebook: {
-        accessToken: process.env.FACEBOOK_ACCESS_TOKEN,
+        accessToken: await getFacebookToken(),
       },
       shopee: {
         partnerId: process.env.SHOPEE_PARTNER_ID,

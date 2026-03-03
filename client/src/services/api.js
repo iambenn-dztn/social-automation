@@ -123,6 +123,19 @@ const api = {
   getAutoPostHistory: () => {
     return axios.get(`${API_BASE_URL}/auto-post/history`);
   },
+
+  // ========== Token Management APIs ==========
+  // Get Facebook token info
+  getTokenInfo: () => {
+    return axios.get(`${API_BASE_URL}/token/info`);
+  },
+
+  // Refresh Facebook access token
+  refreshFacebookToken: (shortLivedToken = null) => {
+    return axios.post(`${API_BASE_URL}/token/refresh`, {
+      shortLivedToken,
+    });
+  },
 };
 
 export default api;

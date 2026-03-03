@@ -1,4 +1,5 @@
 const platformFactory = require("../platforms");
+const { getFacebookToken } = require("../utils/facebookConfig");
 const fs = require("fs");
 
 // Store posting history (in production, use database)
@@ -35,7 +36,7 @@ exports.getChannels = async (req, res) => {
     // Get configuration from environment
     const configs = {
       facebook: {
-        accessToken: process.env.FACEBOOK_ACCESS_TOKEN,
+        accessToken: await getFacebookToken(),
       },
       shopee: {
         partnerId: process.env.SHOPEE_PARTNER_ID,
@@ -124,7 +125,7 @@ exports.postToChannels = async (req, res) => {
     // Get configurations
     const configs = {
       facebook: {
-        accessToken: process.env.FACEBOOK_ACCESS_TOKEN,
+        accessToken: await getFacebookToken(),
       },
       shopee: {
         partnerId: process.env.SHOPEE_PARTNER_ID,

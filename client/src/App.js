@@ -7,6 +7,7 @@ import PostPage from "./pages/PostPage";
 import ContentPage from "./pages/ContentPage";
 import PostManagementPage from "./pages/PostManagementPage";
 import AutoPostPage from "./pages/AutoPostPage";
+import TokenPage from "./pages/TokenPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/content" element={<ContentPage />} />
               <Route path="/post-management" element={<PostManagementPage />} />
               <Route path="/auto-post" element={<AutoPostPage />} />
+              <Route path="/token" element={<TokenPage />} />
             </Routes>
           </div>
         </div>

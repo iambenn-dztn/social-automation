@@ -14,6 +14,7 @@ const platformRoutes = require("./routes/platform");
 const articleRoutes = require("./routes/articles");
 const contentRoutes = require("./routes/contents");
 const autoPostRoutes = require("./routes/autoPost");
+const tokenRoutes = require("./routes/token");
 
 // Import auto-post scheduler
 const autoPost = require("./flows/auto-post");
@@ -38,6 +39,7 @@ app.use("/api/articles", articleRoutes); // Article management routeses
 app.use("/api/contents", contentRoutes); // Rewritten content management
 app.use("/api/platform", platformRoutes); // New multi-platform routes
 app.use("/api/auto-post", autoPostRoutes); // Auto-post scheduler management
+app.use("/api/token", tokenRoutes); // Token management
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

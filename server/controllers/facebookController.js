@@ -2,6 +2,7 @@ const axios = require("axios");
 const FormData = require("form-data");
 const fs = require("fs");
 const path = require("path");
+const { getFacebookToken } = require("../utils/facebookConfig");
 
 // Store posting history in memory (in production, use a database)
 let postingHistory = [];
@@ -13,7 +14,7 @@ const FACEBOOK_GRAPH_API = "https://graph.facebook.com/v18.0";
  */
 exports.getPages = async (req, res) => {
   try {
-    const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
+    const accessToken = await getFacebookToken();
 
     if (!accessToken) {
       return res.status(400).json({
@@ -96,7 +97,7 @@ exports.postToPages = async (req, res) => {
       });
     }
 
-    const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
+    const accessToken = await getFacebookToken();
 
     if (!accessToken) {
       return res.status(400).json({
