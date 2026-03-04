@@ -36,6 +36,8 @@ FACEBOOK_APP_SECRET=<your_app_secret>
 GROQ_API_KEY=<your_groq_key>
 ```
 
+💡 **API Endpoints:** Tự động detect - Local dùng `localhost:3001`, Production dùng relative URL `/api`
+
 **Disk:**
 
 ```
