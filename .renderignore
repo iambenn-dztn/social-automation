@@ -1,0 +1,22 @@
+# Ignore dev files
+.git
+.gitignore
+.vscode
+.idea
+*.log
+
+# Ignore documentation
+*.md
+!README.md
+
+# Ignore local env
+.env.local
+.env.development
+
+# Ignore test files
+*.test.js
+*.spec.js
+__tests__/
+
+# Ignore dev dependencies
+nodemon.json

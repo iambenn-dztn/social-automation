@@ -18,6 +18,7 @@ const tokenRoutes = require("./routes/token");
 
 // Import auto-post scheduler
 const autoPost = require("./flows/auto-post");
+const { seedData } = require("./utils/seedData");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -51,6 +52,17 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Serve static files from React build (for production)
+if (process.env.NODE_ENV === "production") {
+  const clientBuildPath = path.join(__dirname, "../client/build");
+  app.use(express.static(clientBuildPath));
+
+  // All non-API routes serve React app
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(clientBuildPath, "index.html"));
+  });
+}
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error("Error:", err);
@@ -75,6 +87,13 @@ app.listen(PORT, async () => {
   console.log(`   - GET  /api/auto-post/status    (Get auto-post status)`);
   console.log(`   - POST /api/auto-post/enable    (Enable auto-post)`);
   console.log(`   - POST /api/auto-post/disable   (Disable auto-post)`);
+
+  // Seed initial data (runs only on first deployment)
+  try {
+    await seedData();
+  } catch (error) {
+    console.error("❌ Error seeding data:", error.message);
+  }
 
   // Initialize auto-post scheduler if enabled
   try {

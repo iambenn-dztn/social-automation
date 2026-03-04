@@ -99,6 +99,34 @@ npm start
 
 Ứng dụng sẽ mở tại: **http://localhost:3000**
 
+## � Deploy to Production
+
+### Render.com (Khuyến nghị)
+
+**Quick Deploy:**
+
+```bash
+# 1. Push to GitHub
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+
+# 2. Deploy on Render
+# Follow: DEPLOY_QUICK.md
+```
+
+**Hướng dẫn chi tiết:**
+
+- **[DEPLOY_QUICK.md](DEPLOY_QUICK.md)** - Setup nhanh 5 phút ⚡
+- **[DEPLOY_RENDER.md](DEPLOY_RENDER.md)** - Hướng dẫn đầy đủ từng bước 📚
+
+**Free Tier Includes:**
+
+- ✅ 750 hours/month
+- ✅ 1 GB persistent disk
+- ✅ Auto SSL (HTTPS)
+- ✅ Auto-deploy from GitHub
+
 ## 📖 Hướng dẫn chi tiết
 
 Xem các file documentation:
@@ -108,6 +136,7 @@ Xem các file documentation:
 - **[SETUP.md](SETUP.md)** - Setup chi tiết từng bước
 - **[TESTING.md](TESTING.md)** - Kết quả testing
 - **[SUMMARY.md](SUMMARY.md)** - Tổng quan dự án
+- **[DEPLOY_RENDER.md](DEPLOY_RENDER.md)** - Deploy lên Render.com
 
 ## 🔍 API Endpoints
 
