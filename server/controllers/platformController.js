@@ -1,5 +1,6 @@
 const platformFactory = require("../platforms");
 const { getFacebookToken } = require("../utils/facebookConfig");
+const { updateContentStatus } = require("./contentController");
 const fs = require("fs");
 
 // Store posting history (in production, use database)
@@ -101,7 +102,7 @@ exports.getChannels = async (req, res) => {
  */
 exports.postToChannels = async (req, res) => {
   try {
-    const { message, channels } = req.body; // channels: [{ platform, channelId, ... }]
+    const { message, channels, contentId, contentFileName } = req.body; // channels: [{ platform, channelId, ... }]
     const mediaFile = req.file;
 
     if (!message) {
@@ -241,6 +242,20 @@ exports.postToChannels = async (req, res) => {
     // Keep only last 50 entries
     if (postingHistory.length > 50) {
       postingHistory = postingHistory.slice(0, 50);
+    }
+
+    // Update content status to "posted" if at least one channel succeeded and contentId provided
+    const hasSuccessfulPost = results.some((r) => r.success);
+    if (hasSuccessfulPost && contentId) {
+      try {
+        await updateContentStatus(contentId, "posted", contentFileName);
+        console.log(`[PLATFORM POST] Content ${contentId} marked as posted`);
+      } catch (error) {
+        console.error(
+          `[PLATFORM POST] Failed to update content status:`,
+          error.message,
+        );
+      }
     }
 
     // Clean up uploaded file

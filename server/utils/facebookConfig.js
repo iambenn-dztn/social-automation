@@ -1,7 +1,7 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const CONFIG_PATH = path.join(__dirname, "../data/facebook-config.json");
+const CONFIG_PATH = path.join(__dirname, "../configs/facebook-config.json");
 
 /**
  * Get Facebook configuration from JSON file

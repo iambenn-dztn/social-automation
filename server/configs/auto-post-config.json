@@ -1,0 +1,13 @@
+{
+  "enabled": false,
+  "articleSources": [],
+  "channels": [
+    {
+      "platform": "facebook",
+      "channelId": "1027461273779980",
+      "channelName": "J News"
+    }
+  ],
+  "intervalMinutes": 120,
+  "lastRun": "2026-03-03T17:46:00.006Z"
+}

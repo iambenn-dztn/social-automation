@@ -3,6 +3,7 @@ const FormData = require("form-data");
 const fs = require("fs");
 const path = require("path");
 const { getFacebookToken } = require("../utils/facebookConfig");
+const { updateContentStatus } = require("./contentController");
 
 // Store posting history in memory (in production, use a database)
 let postingHistory = [];
@@ -59,7 +60,15 @@ exports.getPages = async (req, res) => {
  */
 exports.postToPages = async (req, res) => {
   try {
-    const { message, channels, pageId, link, localImagePath } = req.body;
+    const {
+      message,
+      channels,
+      pageId,
+      link,
+      localImagePath,
+      contentId,
+      contentFileName,
+    } = req.body;
     const mediaFile = req.file;
 
     if (!message) {
@@ -242,6 +251,20 @@ exports.postToPages = async (req, res) => {
     // Keep only last 50 entries
     if (postingHistory.length > 50) {
       postingHistory = postingHistory.slice(0, 50);
+    }
+
+    // Update content status to "posted" if at least one channel succeeded and contentId provided
+    const hasSuccessfulPost = results.some((r) => r.success);
+    if (hasSuccessfulPost && contentId) {
+      try {
+        await updateContentStatus(contentId, "posted", contentFileName);
+        console.log(`[MANUAL POST] Content ${contentId} marked as posted`);
+      } catch (error) {
+        console.error(
+          `[MANUAL POST] Failed to update content status:`,
+          error.message,
+        );
+      }
     }
 
     // Clean up uploaded file

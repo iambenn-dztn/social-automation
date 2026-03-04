@@ -117,6 +117,8 @@ function PostManagement() {
         link: postingContent.sourceUrl,
         localImagePath: postingContent.localImagePath, // Đường dẫn ảnh local đã download
         channels: channels,
+        contentId: postingContent.articleId || postingContent.id, // Use articleId (UUID) for unique identification
+        contentFileName: postingContent.fileName, // Add fileName to identify the correct file
       };
 
       const response = await axios.post(
@@ -127,6 +129,8 @@ function PostManagement() {
       if (response.data.success) {
         setPostingContent(null);
         setSelectedPages([]);
+        fetchContents(); // Refresh to show updated status
+        alert("Đăng bài thành công!");
       } else {
         alert("Có lỗi xảy ra khi đăng bài");
       }
@@ -232,6 +236,7 @@ function PostManagement() {
                   <th>Tiêu đề</th>
                   <th>Danh mục</th>
                   <th>Hashtags</th>
+                  <th>Trạng thái</th>
                   <th>Ngày tạo</th>
                   <th>Hành động</th>
                 </tr>
@@ -257,6 +262,15 @@ function PostManagement() {
                         })
                         .join(", ") || "N/A"}
                     </td>
+                    <td>
+                      <span
+                        className={`status-badge status-${content.status || "pending"}`}
+                      >
+                        {content.status === "posted" && "✅ Đã đăng"}
+                        {content.status === "pending" && "⏳ Chờ đăng"}
+                        {!content.status && "⏳ Chờ đăng"}
+                      </span>
+                    </td>
                     <td>{formatDate(content.createdAt)}</td>
                     <td>
                       <div className="action-buttons">
@@ -270,14 +284,24 @@ function PostManagement() {
                         <button
                           className="btn-edit"
                           onClick={() => handleOpenEditModal(content)}
-                          title="Sửa"
+                          title={
+                            content.status === "posted"
+                              ? "Không thể sửa bài đã đăng"
+                              : "Sửa"
+                          }
+                          disabled={content.status === "posted"}
                         >
                           ✏️
                         </button>
                         <button
                           className="btn-post"
                           onClick={() => handleOpenPostModal(content)}
-                          title="Đăng bài"
+                          title={
+                            content.status === "posted"
+                              ? "Bài đã được đăng"
+                              : "Đăng bài"
+                          }
+                          disabled={content.status === "posted"}
                         >
                           📤
                         </button>

@@ -234,12 +234,18 @@ const updateContent = async (req, res) => {
 };
 
 // Update content status by ID (internal use)
-const updateContentStatus = async (contentId, status) => {
+const updateContentStatus = async (contentId, status, fileName = null) => {
+  console.log(
+    `[UPDATE STATUS] contentId: ${contentId}, status: ${status}, fileName: ${fileName}`,
+  );
   await ensureOutputDir();
-  const files = await fs.readdir(OUTPUT_DIR);
-  const jsonFiles = files.filter((file) => file.endsWith(".json"));
 
-  for (const file of jsonFiles) {
+  // If fileName is provided, only check that file
+  const filesToCheck = fileName
+    ? [fileName]
+    : (await fs.readdir(OUTPUT_DIR)).filter((file) => file.endsWith(".json"));
+
+  for (const file of filesToCheck) {
     try {
       const filePath = path.join(OUTPUT_DIR, file);
       const data = await fs.readFile(filePath, "utf8");
@@ -248,10 +254,15 @@ const updateContentStatus = async (contentId, status) => {
       if (Array.isArray(contents)) {
         const index = contents.findIndex(
           (item) =>
-            item.id === parseInt(contentId) || item.articleId === contentId,
+            item.id === contentId ||
+            item.id === parseInt(contentId) ||
+            item.articleId === contentId,
         );
 
         if (index !== -1) {
+          console.log(
+            `[UPDATE STATUS] Found content in ${file} at index ${index}`,
+          );
           contents[index].status = status;
           contents[index].updatedAt = new Date().toISOString();
           if (status === "posted") {
@@ -263,6 +274,9 @@ const updateContentStatus = async (contentId, status) => {
             JSON.stringify(contents, null, 2),
             "utf8",
           );
+          console.log(
+            `[UPDATE STATUS] Successfully updated content ${contentId} to ${status}`,
+          );
           return true;
         }
       }
@@ -270,6 +284,9 @@ const updateContentStatus = async (contentId, status) => {
       console.error(`Error processing file ${file}:`, error.message);
     }
   }
+  console.log(
+    `[UPDATE STATUS] Content ${contentId} not found in ${fileName ? `file ${fileName}` : "any file"}`,
+  );
   return false;
 };
 

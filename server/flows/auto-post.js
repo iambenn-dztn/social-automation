@@ -8,15 +8,15 @@ const {
 const platformFactory = require("../platforms");
 const { getFacebookToken } = require("../utils/facebookConfig");
 
-const CONFIG_FILE = path.join(__dirname, "../data/auto-post-config.json");
-const HISTORY_FILE = path.join(__dirname, "../data/auto-post-history.json");
+const CONFIG_FILE = path.join(__dirname, "../configs/auto-post-config.json");
+const HISTORY_FILE = path.join(__dirname, "../configs/auto-post-history.json");
 
 let cronTask = null;
 let isRunning = false;
 
 // Ensure data directory exists
 const ensureDataDir = async () => {
-  const dataDir = path.join(__dirname, "../data");
+  const dataDir = path.join(__dirname, "../configs");
   try {
     await fs.access(dataDir);
   } catch {
@@ -250,8 +250,14 @@ const executeAutoPost = async () => {
     // Mark content as posted if at least one channel succeeded
     const hasSuccessfulPost = logEntry.channels.some((ch) => ch.success);
     if (hasSuccessfulPost) {
-      await updateContentStatus(randomContent.id, "posted");
-      console.log(`[AUTO-POST] Content marked as posted`);
+      await updateContentStatus(
+        randomContent.articleId,
+        "posted",
+        randomContent.fileName,
+      );
+      console.log(
+        `[AUTO-POST] Content ${randomContent.articleId} marked as posted`,
+      );
     }
 
     // Update last run time

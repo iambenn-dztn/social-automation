@@ -1,0 +1,2081 @@
+[
+  {
+    "timestamp": "2026-03-03T18:00:00.020Z",
+    "status": "success",
+    "content": {
+      "id": 5,
+      "articleId": "ce6ae032-ebd9-4558-bd54-7c4d14c5d644",
+      "title": "PHÁP ĐIỀU ĐỘNG CHIẾN ĐẤU CƠ RAFALE 🚀💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099895471260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:49:00.007Z",
+    "status": "running",
+    "content": null,
+    "channels": [],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:48:00.008Z",
+    "status": "running",
+    "content": null,
+    "channels": [],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:47:00.013Z",
+    "status": "running",
+    "content": null,
+    "channels": [],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:46:00.006Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099882379260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:45:00.014Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099881467260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:44:00.012Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099880123260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:43:00.010Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099878947260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:41:00.010Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099877189260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:40:00.017Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099876487260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:39:00.009Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099875803260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:38:00.010Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099875275260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:37:00.008Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099874681260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:36:00.006Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099874177260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:35:00.010Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099873709260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:34:00.008Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099873085260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T17:33:00.020Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:32:00.006Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:31:00.014Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:30:00.016Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:29:00.006Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:28:00.010Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:27:00.009Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:26:00.015Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:25:00.021Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:24:00.019Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:23:00.009Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:22:00.010Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:21:00.013Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:20:00.008Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:19:00.015Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:18:00.019Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:17:00.011Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:16:00.008Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:15:00.018Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:14:00.008Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:13:00.004Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:12:00.010Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:11:00.010Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:10:00.012Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:09:00.015Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:08:00.017Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:07:00.019Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:06:00.010Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:05:00.020Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:04:00.011Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:03:00.019Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:02:00.020Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:01:00.015Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T17:00:00.018Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:59:00.012Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:58:00.013Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:57:00.017Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:56:00.019Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:55:00.011Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:54:00.016Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:53:00.014Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:52:00.012Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:51:00.007Z",
+    "status": "partial",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": false,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "errors": [
+      {
+        "channel": "J News",
+        "error": "Request failed with status code 400"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-03T16:49:00.016Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099851665260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:48:00.007Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099850723260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:47:00.118Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099849907260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:46:00.016Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099849115260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:45:00.012Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099848503260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:44:00.015Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099848185260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:43:00.014Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099847693260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:42:00.013Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099846943260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:41:00.017Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099846235260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:40:00.013Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099845911260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:39:00.007Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099844987260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:38:00.015Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099844495260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:37:00.013Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099843523260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:36:00.014Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099842935260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:35:00.022Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099842251260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:34:00.033Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099841927260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:33:00.021Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099841279260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:32:00.011Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099840619260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:31:00.017Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099839485260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:30:00.011Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099838537260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:29:00.014Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099838039260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:28:00.013Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099837301260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:27:00.013Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099836569260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:26:00.020Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099836167260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:25:00.018Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099835069260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:24:00.014Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099834115260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:23:00.022Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099833401260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:22:00.016Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099832339260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:21:00.019Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099831547260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:20:00.019Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099831121260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:19:00.012Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099830767260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:18:00.018Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099829807260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:17:00.023Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099828853260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:16:00.015Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099827965260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:15:00.016Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099827353260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:14:00.021Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099825991260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:13:00.016Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099825481260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:12:00.007Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099824581260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:11:00.023Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099823993260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:10:00.007Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099823411260460"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "timestamp": "2026-03-03T16:09:00.009Z",
+    "status": "success",
+    "content": {
+      "id": 4,
+      "articleId": "24143d50-8e92-49bb-be68-b7b97c2b2468",
+      "title": "LẠI LÝ HUYNH TIẾP TỤC THÁCH THỨC LÀNG CỜ TƯỢNG TRUNG QUỐC 🎉💪"
+    },
+    "channels": [
+      {
+        "platform": "facebook",
+        "channelId": "1027461273779980",
+        "channelName": "J News",
+        "success": true,
+        "postId": "122099822841260460"
+      }
+    ],
+    "errors": []
+  }
+]

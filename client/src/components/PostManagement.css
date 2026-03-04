@@ -132,6 +132,36 @@
   transform: scale(1.1);
 }
 
+/* Disabled button state */
+.action-buttons button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.status-badge.status-pending {
+  background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%);
+  color: #f57c00;
+  border: 1.5px solid #ffb74d;
+}
+
+.status-badge.status-posted {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  color: #2e7d32;
+  border: 1.5px solid #66bb6a;
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;

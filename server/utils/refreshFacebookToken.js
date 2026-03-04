@@ -199,7 +199,7 @@ async function refreshFacebookToken(shortLivedToken = null) {
       `⏰ Expires: ${tokenInfo.expires_at === 0 ? "Never" : new Date(tokenInfo.expires_at * 1000).toLocaleString("vi-VN")}`,
     );
     console.log("═══════════════════════════════════════\n");
-    console.log("💡 Token đã được lưu vào: server/data/facebook-config.json");
+    console.log("💡 Token đã được lưu vào: server/configs/facebook-config.json");
     console.log("⚠️  Không cần restart server, token sẽ tự động cập nhật!\n");
 
     return {
