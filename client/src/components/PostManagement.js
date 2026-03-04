@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../services/api";
 import "./PostManagement.css";
-
-const API_BASE_URL = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api`;
 
 function PostManagement() {
   const [contents, setContents] = useState([]);

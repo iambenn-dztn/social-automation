@@ -60,6 +60,7 @@ Start Command: cd server && npm start
 ```
 
 **💡 Cách Hoạt Động:**
+
 - **Build:** Cài dependencies cho server → Build React app vào `client/build/`
 - **React Production Mode:** Tự động dùng relative URL `/api` thay vì `localhost:3001`
 - **Start:** Express serve static files từ `client/build/` + API endpoints
@@ -395,30 +396,30 @@ const getApiBaseUrl = () => {
   if (process.env.REACT_APP_API_URL) {
     return process.env.REACT_APP_API_URL;
   }
-  
+
   // 2. Production: dùng relative URL (cùng domain)
   if (process.env.NODE_ENV === "production") {
-    return "/api";  // ← Render: https://your-app.onrender.com/api
+    return "/api"; // ← Render: https://your-app.onrender.com/api
   }
-  
+
   // 3. Development: dùng localhost
-  return "http://localhost:3001/api";  // ← Local development
+  return "http://localhost:3001/api"; // ← Local development
 };
 ```
 
 ### Cách Hoạt Động:
 
-| Môi Trường | NODE_ENV | API Base URL | Full URL Example |
-|------------|----------|--------------|------------------|
-| **Local Dev** | `development` | `http://localhost:3001/api` | `http://localhost:3001/api/health` |
-| **Production** | `production` | `/api` | `https://your-app.onrender.com/api/health` |
+| Môi Trường     | NODE_ENV      | API Base URL                | Full URL Example                           |
+| -------------- | ------------- | --------------------------- | ------------------------------------------ |
+| **Local Dev**  | `development` | `http://localhost:3001/api` | `http://localhost:3001/api/health`         |
+| **Production** | `production`  | `/api`                      | `https://your-app.onrender.com/api/health` |
 
 ### Lợi Ích:
 
 ✅ **Không cần config thêm** - Tự động detect  
 ✅ **Không hardcode URL** - Dynamic dựa vào environment  
 ✅ **Single domain** - Frontend + Backend cùng domain (tránh CORS)  
-✅ **Secure** - HTTPS miễn phí từ Render  
+✅ **Secure** - HTTPS miễn phí từ Render
 
 ### Override (Nếu Cần):
 

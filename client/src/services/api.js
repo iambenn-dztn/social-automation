@@ -6,19 +6,24 @@ const getApiBaseUrl = () => {
   if (process.env.REACT_APP_API_URL) {
     return process.env.REACT_APP_API_URL;
   }
-  
+
   // 2. Production: use relative URL (same domain as frontend)
   if (process.env.NODE_ENV === "production") {
     return "/api";
   }
-  
+
   // 3. Development: use localhost backend
   return "http://localhost:3001/api";
 };
 
 const API_BASE_URL = getApiBaseUrl();
 
-console.log("[API] Base URL:", API_BASE_URL, "| Environment:", process.env.NODE_ENV);
+console.log(
+  "[API] Base URL:",
+  API_BASE_URL,
+  "| Environment:",
+  process.env.NODE_ENV,
+);
 
 const api = {
   // ========== Legacy Facebook-only APIs (deprecated) ==========
@@ -156,3 +161,4 @@ const api = {
 };
 
 export default api;
+export { API_BASE_URL };
