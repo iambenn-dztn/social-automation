@@ -2,6 +2,9 @@ const fs = require("fs").promises;
 const path = require("path");
 const crypto = require("crypto");
 const { rewriteArticle } = require("../flows/rewrite-content-new");
+const {
+  rewriteAndPostToAllChannels,
+} = require("../flows/article-rewrite-and-post");
 
 const ARTICLES_FILE = path.join(__dirname, "../data/articles.json");
 
@@ -104,16 +107,57 @@ const addArticle = async (req, res) => {
     articles.push(newArticle);
     await writeArticles(articles);
 
-    // Trigger content rewriting after adding new article (async, don't wait)
-    rewriteArticle(newArticle.id, newArticle.link).catch((err) => {
-      console.error("Error in background rewrite:", err);
-    });
+    console.log(
+      `[ADD ARTICLE] Added article ${newArticle.id}, starting rewrite and post...`,
+    );
 
-    res.json({
-      success: true,
-      message: "Thêm bài báo thành công",
-      article: newArticle,
-    });
+    // Trigger rewrite and post to all channels (wait for completion)
+    try {
+      const result = await rewriteAndPostToAllChannels(
+        newArticle.id,
+        newArticle.link,
+      );
+
+      console.log(
+        `[ADD ARTICLE] Completed: ${result.postingResults.filter((r) => r.success).length}/${result.postingResults.length} posts successful`,
+      );
+
+      // Update article status to active after successful posting
+      const articleIndex = articles.findIndex((a) => a.id === newArticle.id);
+      if (articleIndex !== -1 && result.success) {
+        articles[articleIndex].status = "posted";
+        articles[articleIndex].updatedAt = new Date().toISOString();
+        await writeArticles(articles);
+      }
+
+      res.json({
+        success: true,
+        message: "Thêm bài báo, rewrite và đăng thành công",
+        article: articles.find((a) => a.id === newArticle.id),
+        content: result.content
+          ? {
+              id: result.content.id,
+              title: result.content.title,
+              summary: result.content.summary,
+            }
+          : null,
+        postingResults: result.postingResults,
+        errors: result.errors,
+      });
+    } catch (error) {
+      console.error("[ADD ARTICLE] Error during rewrite/post:", error.message);
+
+      // Even if posting fails, article is still added
+      res.json({
+        success: true,
+        message:
+          "Đã thêm bài báo nhưng có lỗi khi rewrite/đăng: " + error.message,
+        article: newArticle,
+        content: null,
+        postingResults: [],
+        errors: [{ stage: "rewrite_or_post", error: error.message }],
+      });
+    }
   } catch (error) {
     console.error("Error adding article:", error);
     res.status(500).json({

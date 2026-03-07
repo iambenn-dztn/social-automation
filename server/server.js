@@ -95,18 +95,11 @@ app.listen(PORT, async () => {
     console.error("❌ Error seeding data:", error.message);
   }
 
-  // Initialize auto-post scheduler if enabled
+  // Start hot articles crawler (runs every 10 minutes)
   try {
-    const config = await autoPost.readConfig();
-    if (config.enabled) {
-      await autoPost.startScheduler();
-      console.log(
-        `⏰ Auto-post scheduler started (interval: ${config.intervalMinutes} minutes)`,
-      );
-    } else {
-      console.log(`⏰ Auto-post scheduler is disabled`);
-    }
+    autoPost.startHotArticlesCrawler();
+    console.log("🔥 Hot articles crawler started (runs every 10 minutes)");
   } catch (error) {
-    console.error("❌ Error initializing auto-post scheduler:", error.message);
+    console.error("❌ Error starting hot articles crawler:", error.message);
   }
 });

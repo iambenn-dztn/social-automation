@@ -1,42 +1,36 @@
 const cron = require("node-cron");
 const fs = require("fs").promises;
 const path = require("path");
-const {
-  getPendingContents,
-  updateContentStatus,
-} = require("../controllers/contentController");
-const platformFactory = require("../platforms");
-const { getFacebookToken } = require("../utils/facebookConfig");
+const { crawlSelectAndAutoPost } = require("./crawl-and-auto-post");
 
-const CONFIG_FILE = path.join(__dirname, "../configs/auto-post-config.json");
-const HISTORY_FILE = path.join(__dirname, "../configs/auto-post-history.json");
+const CONFIG_FILE = path.join(__dirname, "../configs/hot-crawler-config.json");
 
-let cronTask = null;
-let isRunning = false;
+let hotArticlesCronTask = null;
+let hotArticlesCronRunning = false;
+let currentConfig = null;
 
-// Ensure data directory exists
-const ensureDataDir = async () => {
-  const dataDir = path.join(__dirname, "../configs");
+// Ensure config directory exists
+const ensureConfigDir = async () => {
+  const configDir = path.join(__dirname, "../configs");
   try {
-    await fs.access(dataDir);
+    await fs.access(configDir);
   } catch {
-    await fs.mkdir(dataDir, { recursive: true });
+    await fs.mkdir(configDir, { recursive: true });
   }
 };
 
 // Read config from JSON file
 const readConfig = async () => {
   try {
-    await ensureDataDir();
+    await ensureConfigDir();
     const data = await fs.readFile(CONFIG_FILE, "utf8");
     return JSON.parse(data);
   } catch (error) {
     if (error.code === "ENOENT") {
       const defaultConfig = {
         enabled: false,
-        channels: [],
-        intervalMinutes: 60,
-        lastRun: null,
+        cronPattern: "*/10 * * * *", // Every 10 minutes
+        articlesPerRun: 1,
       };
       await writeConfig(defaultConfig);
       return defaultConfig;
@@ -47,292 +41,8 @@ const readConfig = async () => {
 
 // Write config to JSON file
 const writeConfig = async (config) => {
-  await ensureDataDir();
+  await ensureConfigDir();
   await fs.writeFile(CONFIG_FILE, JSON.stringify(config, null, 2), "utf8");
-};
-
-// Read history from JSON file
-const readHistory = async () => {
-  try {
-    await ensureDataDir();
-    const data = await fs.readFile(HISTORY_FILE, "utf8");
-    return JSON.parse(data);
-  } catch (error) {
-    if (error.code === "ENOENT") {
-      return [];
-    }
-    throw error;
-  }
-};
-
-// Write history to JSON file
-const writeHistory = async (history) => {
-  await ensureDataDir();
-  await fs.writeFile(HISTORY_FILE, JSON.stringify(history, null, 2), "utf8");
-};
-
-// Add to history
-const addToHistory = async (entry) => {
-  const history = await readHistory();
-  history.unshift(entry);
-
-  // Keep only last 100 entries
-  if (history.length > 100) {
-    history.splice(100);
-  }
-
-  await writeHistory(history);
-};
-
-/**
- * Execute auto-post job
- */
-const executeAutoPost = async () => {
-  const startTime = new Date().toISOString();
-  const logEntry = {
-    timestamp: startTime,
-    status: "running",
-    content: null,
-    channels: [],
-    errors: [],
-  };
-
-  try {
-    console.log("[AUTO-POST] Starting auto-post job...");
-
-    // Read config
-    const config = await readConfig();
-
-    if (!config.enabled) {
-      console.log("[AUTO-POST] Auto-post is disabled, skipping...");
-      return;
-    }
-
-    if (!config.channels || config.channels.length === 0) {
-      throw new Error("No channels configured");
-    }
-
-    // Get all pending contents
-    const pendingContents = await getPendingContents();
-
-    if (pendingContents.length === 0) {
-      throw new Error("No pending contents available");
-    }
-
-    // Pick random content from pending list
-    const randomContent =
-      pendingContents[Math.floor(Math.random() * pendingContents.length)];
-
-    console.log(`[AUTO-POST] Selected content: ${randomContent.title}`);
-    logEntry.content = {
-      id: randomContent.id,
-      articleId: randomContent.articleId,
-      title: randomContent.title,
-    };
-
-    // Content is already rewritten, use directly
-    console.log("[AUTO-POST] Using pre-generated content");
-
-    // Post to channels
-    console.log("[AUTO-POST] Posting to channels...");
-
-    // Get platform configs from environment
-    const platformConfigs = {
-      facebook: {
-        accessToken: await getFacebookToken(),
-      },
-      shopee: {
-        partnerId: process.env.SHOPEE_PARTNER_ID,
-        partnerKey: process.env.SHOPEE_PARTNER_KEY,
-        shopId: process.env.SHOPEE_SHOP_ID,
-      },
-    };
-
-    // Post to each channel
-    for (const channelConfig of config.channels) {
-      const { platform, channelId, channelName } = channelConfig;
-
-      try {
-        const platformConfig = platformConfigs[platform.toLowerCase()];
-
-        if (!platformConfig || Object.values(platformConfig).some((v) => !v)) {
-          throw new Error(`${platform} is not configured in environment`);
-        }
-
-        const platformInstance = platformFactory.create(
-          platform.toLowerCase(),
-          platformConfig,
-        );
-
-        // Get channels to obtain access tokens
-        const channels = await platformInstance.getChannels();
-        const targetChannel = channels.find((ch) => ch.id === channelId);
-
-        if (!targetChannel) {
-          throw new Error(`Channel ${channelId} not found`);
-        }
-
-        // Prepare post data based on platform
-        let postData;
-        if (platform.toLowerCase() === "facebook") {
-          postData = {
-            message: randomContent.content,
-            channelId: channelId,
-            pageAccessToken: targetChannel.accessToken,
-            media: randomContent.localImagePath
-              ? {
-                  file: {
-                    path: randomContent.localImagePath,
-                    filename: randomContent.localImagePath.split("/").pop(),
-                  },
-                }
-              : null,
-          };
-        } else if (platform.toLowerCase() === "shopee") {
-          // Upload media first for Shopee if needed
-          let mediaInfo = null;
-          if (randomContent.localImagePath) {
-            try {
-              mediaInfo = await platformInstance.uploadMedia(
-                {
-                  path: randomContent.localImagePath,
-                  filename: randomContent.localImagePath.split("/").pop(),
-                },
-                { shopId: platformConfig.shopId },
-              );
-            } catch (error) {
-              console.error(`Error uploading media to Shopee:`, error.message);
-            }
-          }
-
-          postData = {
-            message: randomContent.content,
-            channelId: channelId,
-            media: mediaInfo ? { mediaId: mediaInfo.mediaId } : null,
-          };
-        }
-
-        const result = await platformInstance.post(postData);
-
-        console.log(`[AUTO-POST] Posted to ${platform} channel ${channelName}`);
-
-        logEntry.channels.push({
-          platform,
-          channelId,
-          channelName,
-          success: true,
-          postId: result.postId,
-        });
-      } catch (error) {
-        console.error(
-          `[AUTO-POST] Error posting to ${platform} channel ${channelName}:`,
-          error.message,
-        );
-
-        logEntry.channels.push({
-          platform,
-          channelId,
-          channelName,
-          success: false,
-          error: error.message,
-        });
-
-        logEntry.errors.push({
-          channel: channelName,
-          error: error.message,
-        });
-      }
-    }
-
-    // Update status
-    logEntry.status = logEntry.errors.length === 0 ? "success" : "partial";
-
-    // Mark content as posted if at least one channel succeeded
-    const hasSuccessfulPost = logEntry.channels.some((ch) => ch.success);
-    if (hasSuccessfulPost) {
-      await updateContentStatus(
-        randomContent.articleId,
-        "posted",
-        randomContent.fileName,
-      );
-      console.log(
-        `[AUTO-POST] Content ${randomContent.articleId} marked as posted`,
-      );
-    }
-
-    // Update last run time
-    config.lastRun = startTime;
-    await writeConfig(config);
-
-    console.log(`[AUTO-POST] Job completed with status: ${logEntry.status}`);
-  } catch (error) {
-    console.error("[AUTO-POST] Job failed:", error.message);
-    logEntry.status = "failed";
-    logEntry.errors.push({
-      error: error.message,
-    });
-  } finally {
-    // Save to history
-    await addToHistory(logEntry);
-  }
-};
-
-/**
- * Start the cron scheduler
- */
-const startScheduler = async () => {
-  if (isRunning) {
-    console.log("[AUTO-POST] Scheduler is already running");
-    return;
-  }
-
-  const config = await readConfig();
-
-  if (!config.enabled) {
-    console.log("[AUTO-POST] Auto-post is disabled");
-    return;
-  }
-
-  // Stop existing task if any
-  if (cronTask) {
-    cronTask.stop();
-  }
-
-  // Create cron pattern based on interval
-  const intervalMinutes = config.intervalMinutes || 60;
-
-  // For intervals >= 60 minutes, use hourly cron
-  // For shorter intervals, use minute-based cron
-  let cronPattern;
-  if (intervalMinutes >= 60) {
-    const hours = Math.floor(intervalMinutes / 60);
-    cronPattern = `0 */${hours} * * *`; // Every N hours
-  } else {
-    cronPattern = `*/${intervalMinutes} * * * *`; // Every N minutes
-  }
-
-  console.log(
-    `[AUTO-POST] Starting scheduler with pattern: ${cronPattern} (every ${intervalMinutes} minutes)`,
-  );
-
-  cronTask = cron.schedule(cronPattern, executeAutoPost, {
-    timezone: "Asia/Ho_Chi_Minh",
-  });
-
-  isRunning = true;
-  console.log("[AUTO-POST] Scheduler started successfully");
-};
-
-/**
- * Stop the cron scheduler
- */
-const stopScheduler = () => {
-  if (cronTask) {
-    cronTask.stop();
-    cronTask = null;
-  }
-  isRunning = false;
-  console.log("[AUTO-POST] Scheduler stopped");
 };
 
 /**
@@ -340,17 +50,113 @@ const stopScheduler = () => {
  */
 const getStatus = () => {
   return {
-    running: isRunning,
-    taskActive: cronTask !== null,
+    hotArticlesCrawlerRunning: hotArticlesCronRunning,
+    hotArticlesCrawlerActive: hotArticlesCronTask !== null,
+    config: currentConfig,
   };
 };
 
+/**
+ * Start hot articles crawler and auto-post
+ */
+const startHotArticlesCrawler = async () => {
+  if (hotArticlesCronTask) {
+    console.log("[AUTO-POST] Already running");
+    return;
+  }
+
+  // Read config
+  const config = await readConfig();
+  currentConfig = config;
+
+  const cronPattern = config.cronPattern || "*/10 * * * *";
+  const articlesPerRun = config.articlesPerRun || 1;
+
+  // Validate cron pattern
+  if (!cron.validate(cronPattern)) {
+    throw new Error(`Invalid cron pattern: ${cronPattern}`);
+  }
+
+  hotArticlesCronTask = cron.schedule(cronPattern, async () => {
+    if (hotArticlesCronRunning) {
+      console.log("[AUTO-POST] Previous job still running, skipping...");
+      return;
+    }
+
+    hotArticlesCronRunning = true;
+    console.log(
+      `[AUTO-POST] Starting scheduled crawl and post at ${new Date().toLocaleString("vi-VN")}`,
+    );
+
+    try {
+      const result = await crawlSelectAndAutoPost(articlesPerRun);
+
+      if (result.success) {
+        if (result.selectedArticle) {
+          const successCount = result.postingResults.filter(
+            (r) => r.success,
+          ).length;
+          console.log(
+            `[AUTO-POST] ✅ Completed - Posted to ${successCount}/${result.postingResults.length} channels`,
+          );
+        } else {
+          console.log("[AUTO-POST] ℹ️  No new articles to post");
+        }
+      } else {
+        console.log(`[AUTO-POST] ⚠️  Completed with errors`);
+      }
+    } catch (error) {
+      console.error("[AUTO-POST] ❌ Error during scheduled job:", error);
+    } finally {
+      hotArticlesCronRunning = false;
+    }
+  });
+
+  hotArticlesCronTask.start();
+  console.log(
+    `[AUTO-POST] 🚀 Started - Cron: ${cronPattern}, Articles/run: ${articlesPerRun}`,
+  );
+
+  // Update config to enabled
+  config.enabled = true;
+  await writeConfig(config);
+
+  // Run immediately on start
+  setImmediate(async () => {
+    console.log("[AUTO-POST] Running initial crawl and post...");
+    try {
+      await crawlSelectAndAutoPost(articlesPerRun);
+    } catch (error) {
+      console.error("[AUTO-POST] Error during initial job:", error);
+    }
+  });
+};
+
+/**
+ * Stop hot articles crawler and auto-post
+ */
+const stopHotArticlesCrawler = async () => {
+  if (!hotArticlesCronTask) {
+    console.log("[AUTO-POST] Not running");
+    return;
+  }
+
+  hotArticlesCronTask.stop();
+  hotArticlesCronTask = null;
+  hotArticlesCronRunning = false;
+  console.log("[AUTO-POST] 🛑 Stopped");
+
+  // Update config to disabled
+  const config = await readConfig();
+  config.enabled = false;
+  await writeConfig(config);
+};
+
 module.exports = {
-  startScheduler,
-  stopScheduler,
-  executeAutoPost,
   getStatus,
   readConfig,
   writeConfig,
-  readHistory,
+  startHotArticlesCrawler,
+  stopHotArticlesCrawler,
+  crawlSelectAndAutoPost,
 };

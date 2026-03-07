@@ -5,22 +5,17 @@ const autoPostController = require("../controllers/autoPostController");
 // Get auto-post status
 router.get("/status", autoPostController.getStatus);
 
-// Get auto-post configuration
+// Get hot crawler config
 router.get("/config", autoPostController.getConfig);
 
-// Update auto-post configuration
+// Update hot crawler config
 router.post("/config", autoPostController.updateConfig);
 
-// Enable auto-posting
-router.post("/enable", autoPostController.enable);
+// Hot articles crawler routes
+router.post("/hot-crawler/start", autoPostController.startHotCrawler);
+router.post("/hot-crawler/stop", autoPostController.stopHotCrawler);
 
-// Disable auto-posting
-router.post("/disable", autoPostController.disable);
-
-// Manually trigger auto-post job
-router.post("/run-now", autoPostController.runNow);
-
-// Get auto-post history
-router.get("/history", autoPostController.getHistory);
+// Crawl, select best, and auto-post to all pages
+router.post("/crawl-and-post", autoPostController.crawlAndAutoPost);
 
 module.exports = router;

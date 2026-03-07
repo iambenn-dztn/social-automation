@@ -116,34 +116,27 @@ const api = {
     return axios.get(`${API_BASE_URL}/auto-post/status`);
   },
 
-  // Get auto-post configuration
-  getAutoPostConfig: () => {
+  // Get hot crawler config
+  getHotCrawlerConfig: () => {
     return axios.get(`${API_BASE_URL}/auto-post/config`);
   },
 
-  // Update auto-post configuration
-  updateAutoPostConfig: (data) => {
+  // Update hot crawler config
+  updateHotCrawlerConfig: (data) => {
     return axios.post(`${API_BASE_URL}/auto-post/config`, data);
   },
 
-  // Enable auto-posting
-  enableAutoPost: () => {
-    return axios.post(`${API_BASE_URL}/auto-post/enable`);
+  // Hot articles crawler APIs
+  startHotCrawler: () => {
+    return axios.post(`${API_BASE_URL}/auto-post/hot-crawler/start`);
   },
 
-  // Disable auto-posting
-  disableAutoPost: () => {
-    return axios.post(`${API_BASE_URL}/auto-post/disable`);
+  stopHotCrawler: () => {
+    return axios.post(`${API_BASE_URL}/auto-post/hot-crawler/stop`);
   },
 
-  // Manually trigger auto-post job
-  runAutoPostNow: () => {
-    return axios.post(`${API_BASE_URL}/auto-post/run-now`);
-  },
-
-  // Get auto-post history
-  getAutoPostHistory: () => {
-    return axios.get(`${API_BASE_URL}/auto-post/history`);
+  crawlAndAutoPost: () => {
+    return axios.post(`${API_BASE_URL}/auto-post/crawl-and-post`);
   },
 
   // ========== Token Management APIs ==========

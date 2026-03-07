@@ -4,13 +4,11 @@ import api from "../services/api";
 
 function AutoPostSettings() {
   const [loading, setLoading] = useState(true);
-  const [status, setStatus] = useState(null);
-  const [pendingCount, setPendingCount] = useState(0);
-  const [channels, setChannels] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [selectedChannels, setSelectedChannels] = useState([]);
-  const [intervalMinutes, setIntervalMinutes] = useState(60);
-  const [showHistory, setShowHistory] = useState(false);
+  const [hotCrawlerActive, setHotCrawlerActive] = useState(false);
+  const [hotCrawlerRunning, setHotCrawlerRunning] = useState(false);
+  const [cronPattern, setCronPattern] = useState("*/10 * * * *");
+  const [articlesPerRun, setArticlesPerRun] = useState(1);
+  const [showConfig, setShowConfig] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -20,45 +18,17 @@ function AutoPostSettings() {
     try {
       setLoading(true);
 
-      const [statusRes, contentsRes, channelsRes, historyRes] =
-        await Promise.all([
-          api.getAutoPostStatus(),
-          api.getAllContents(),
-          api.getChannels("all"),
-          api.getAutoPostHistory(),
-        ]);
+      const [statusRes, configRes] = await Promise.all([
+        api.getAutoPostStatus(),
+        api.getHotCrawlerConfig(),
+      ]);
 
-      setStatus(statusRes.data.data);
-      setHistory(historyRes.data.data || []);
+      setHotCrawlerActive(statusRes.data.data?.hotCrawlerActive || false);
+      setHotCrawlerRunning(statusRes.data.data?.hotCrawlerRunning || false);
 
-      // Count pending contents
-      const contents = contentsRes.data.contents || [];
-      const pendingContents = contents.filter((c) => c.status === "pending");
-      setPendingCount(pendingContents.length);
-
-      // Parse channels from multi-platform response
-      const allChannels = [];
-      const channelResults = channelsRes.data.results || {};
-
-      Object.keys(channelResults).forEach((platform) => {
-        const platformData = channelResults[platform];
-        if (platformData.success && platformData.channels) {
-          platformData.channels.forEach((channel) => {
-            allChannels.push({
-              platform: platform,
-              channelId: channel.id,
-              channelName: channel.name,
-            });
-          });
-        }
-      });
-
-      setChannels(allChannels);
-
-      // Set selected items from config
-      if (statusRes.data.data) {
-        setSelectedChannels(statusRes.data.data.channels || []);
-        setIntervalMinutes(statusRes.data.data.intervalMinutes || 60);
+      if (configRes.data.data) {
+        setCronPattern(configRes.data.data.cronPattern || "*/10 * * * *");
+        setArticlesPerRun(configRes.data.data.articlesPerRun || 1);
       }
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -67,93 +37,58 @@ function AutoPostSettings() {
     }
   };
 
-  const handleToggleChannel = (channel) => {
-    const channelKey = `${channel.platform}-${channel.channelId}`;
-    const existingIndex = selectedChannels.findIndex(
-      (ch) => `${ch.platform}-${ch.channelId}` === channelKey,
-    );
-
-    if (existingIndex >= 0) {
-      setSelectedChannels((prev) => prev.filter((_, i) => i !== existingIndex));
-    } else {
-      setSelectedChannels((prev) => [...prev, channel]);
-    }
-  };
-
-  const isChannelSelected = (channel) => {
-    const channelKey = `${channel.platform}-${channel.channelId}`;
-    return selectedChannels.some(
-      (ch) => `${ch.platform}-${ch.channelId}` === channelKey,
-    );
-  };
-
   const handleSaveConfig = async () => {
     try {
-      await api.updateAutoPostConfig({
-        channels: selectedChannels,
-        intervalMinutes: parseInt(intervalMinutes),
+      await api.updateHotCrawlerConfig({
+        cronPattern,
+        articlesPerRun: parseInt(articlesPerRun),
       });
 
-      alert("Đã lưu cấu hình");
+      alert("Đã lưu cấu hình. Vui lòng khởi động lại crawler nếu đang chạy.");
       fetchData();
     } catch (err) {
       console.error("Error saving config:", err);
-      alert("Không thể lưu cấu hình");
+      alert(err.response?.data?.message || "Không thể lưu cấu hình");
     }
   };
 
-  const handleToggleEnabled = async () => {
+  const handleToggleHotCrawler = async () => {
     try {
-      if (status?.enabled) {
-        await api.disableAutoPost();
+      if (hotCrawlerActive) {
+        await api.stopHotCrawler();
+        alert("Đã tắt Hot Articles Crawler");
       } else {
-        await api.enableAutoPost();
+        await api.startHotCrawler();
+        alert("Đã bật Hot Articles Crawler (chạy mỗi 10 phút)");
       }
-
       fetchData();
     } catch (err) {
-      console.error("Error toggling auto-post:", err);
+      console.error("Error toggling hot crawler:", err);
       alert(err.response?.data?.message || "Không thể thay đổi trạng thái");
     }
   };
 
-  const handleRunNow = async () => {
-    try {
-      await api.runAutoPostNow();
-      alert("Đã kích hoạt auto-post thủ công");
+  const handleCrawlAndAutoPost = async () => {
+    const confirmMsg =
+      "Hệ thống sẽ:\n" +
+      "1. Crawl bài viết từ VnExpress và Dân Trí\n" +
+      "2. Chọn 1 bài tốt nhất\n" +
+      "3. Rewrite và đăng lên tất cả page\n\n" +
+      "Tiếp tục?";
 
-      // Refresh history after a short delay
+    if (!window.confirm(confirmMsg)) {
+      return;
+    }
+
+    try {
+      await api.crawlAndAutoPost();
+      alert("Đã bắt đầu crawl và auto-post. Kiểm tra logs để theo dõi.");
       setTimeout(() => {
         fetchData();
-      }, 2000);
+      }, 3000);
     } catch (err) {
-      console.error("Error running auto-post:", err);
-      alert("Không thể kích hoạt auto-post");
-    }
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("vi-VN", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-  };
-
-  const getStatusClass = (itemStatus) => {
-    switch (itemStatus) {
-      case "success":
-        return "status-success";
-      case "failed":
-        return "status-failed";
-      case "partial":
-        return "status-partial";
-      default:
-        return "";
+      console.error("Error running crawl and auto-post:", err);
+      alert("Không thể kích hoạt crawl and auto-post");
     }
   };
 
@@ -170,164 +105,151 @@ function AutoPostSettings() {
 
   return (
     <div className="auto-post-settings">
-      <div className="settings-header">
-        <h2>⏰ Tự động đăng bài</h2>
-        <div className="header-actions">
-          <div className="status-indicator">
-            <span
-              className={`status-dot ${status?.enabled ? "active" : ""}`}
-            ></span>
-            <span className="status-text">
-              {status?.enabled ? "Đang hoạt động" : "Đã tắt"}
-            </span>
+      {/* Hot Articles Crawler Section */}
+      <div className="settings-content hot-crawler-section">
+        <div className="section-header">
+          <h3>🔥 Hot Articles Auto-Poster</h3>
+          <div className="header-actions">
+            <div className="status-indicator">
+              <span
+                className={`status-dot ${hotCrawlerActive ? "active" : ""}`}
+              ></span>
+              <span className="status-text">
+                {hotCrawlerActive ? "Đang hoạt động" : "Đã tắt"}
+              </span>
+              {hotCrawlerRunning && (
+                <span className="running-badge">⚡ Đang chạy...</span>
+              )}
+            </div>
+            <button
+              className={`btn-toggle ${hotCrawlerActive ? "btn-danger" : "btn-primary"}`}
+              onClick={handleToggleHotCrawler}
+            >
+              {hotCrawlerActive ? "Tắt" : "Bật"}
+            </button>
+            <button className="btn-secondary" onClick={handleCrawlAndAutoPost}>
+              Chạy ngay
+            </button>
           </div>
-          <button
-            className={`btn-toggle ${status?.enabled ? "btn-danger" : "btn-primary"}`}
-            onClick={handleToggleEnabled}
+        </div>
+
+        <div className="info-box hot-crawler-info">
+          <h4>📋 Cách hoạt động:</h4>
+          <ul>
+            <li>
+              ⏱️ <strong>Tự động chạy theo lịch</strong>
+            </li>
+            <li>
+              📰 Crawl bài hot từ <strong>VnExpress</strong> và{" "}
+              <strong>Dân Trí</strong>
+            </li>
+            <li>
+              🎯 Đánh giá và chọn <strong>bài tốt nhất</strong> (drama, giá
+              vàng, chính trị...)
+            </li>
+            <li>
+              ✍️ <strong>Rewrite riêng</strong> cho từng page (nội dung khác
+              nhau)
+            </li>
+            <li>
+              🚀 Đăng lên <strong>tất cả page</strong> đã kết nối
+            </li>
+            <li>
+              🔒 <strong>Tự động lọc trùng</strong> - không đăng bài đã post
+            </li>
+          </ul>
+
+          <div className="crawler-stats">
+            <div className="stat-item">
+              <span className="stat-label">Lịch chạy:</span>
+              <span className="stat-value">{cronPattern}</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Nguồn:</span>
+              <span className="stat-value">VnExpress + Dân Trí</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Số bài/lần:</span>
+              <span className="stat-value">{articlesPerRun} bài</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Configuration Section */}
+        <div className="config-section">
+          <div
+            className="config-header"
+            onClick={() => setShowConfig(!showConfig)}
           >
-            {status?.enabled ? "Tắt" : "Bật"}
-          </button>
-          <button className="btn-secondary" onClick={handleRunNow}>
-            Chạy ngay
-          </button>
-        </div>
-      </div>
-
-      <div className="settings-content">
-        <div className="config-section">
-          <h3>Nguồn nội dung</h3>
-          <div className="info-box">
-            <p>
-              Hệ thống sẽ tự động lấy{" "}
-              <strong>{pendingCount} nội dung pending</strong> để đăng.
-            </p>
-            <p className="info-note">
-              💡 Nội dung chuyển sang trạng thái "pending" sau khi được gen
-              xong, và chuyển sang "posted" sau khi đăng thành công.
-            </p>
+            <h4>⚙️ Cấu hình</h4>
+            <span className="toggle-icon">{showConfig ? "▼" : "▶"}</span>
           </div>
-        </div>
 
-        <div className="config-section">
-          <h3>Cấu hình kênh đăng bài</h3>
-          <div className="channel-list">
-            {channels.length === 0 ? (
-              <p className="empty-message">Không có kênh nào khả dụng</p>
-            ) : (
-              channels.map((channel, index) => (
-                <label key={index} className="checkbox-item">
-                  <input
-                    type="checkbox"
-                    checked={isChannelSelected(channel)}
-                    onChange={() => handleToggleChannel(channel)}
-                  />
-                  <span className="channel-info">
-                    <span className="platform-badge">{channel.platform}</span>
-                    {channel.channelName}
+          {showConfig && (
+            <div className="config-content">
+              <div className="config-item">
+                <label>
+                  <strong>Cron Pattern:</strong>
+                  <span className="help-text">
+                    (Ví dụ: */10 * * * * = mỗi 10 phút)
                   </span>
                 </label>
-              ))
-            )}
-          </div>
-        </div>
-
-        <div className="config-section">
-          <h3>Khoảng thời gian</h3>
-          <div className="interval-input">
-            <input
-              type="number"
-              min="1"
-              value={intervalMinutes}
-              onChange={(e) => setIntervalMinutes(e.target.value)}
-            />
-            <span>phút</span>
-          </div>
-        </div>
-
-        <div className="config-actions">
-          <button className="btn-primary" onClick={handleSaveConfig}>
-            Lưu cấu hình
-          </button>
-        </div>
-      </div>
-
-      <div className="history-section">
-        <div
-          className="history-header"
-          onClick={() => setShowHistory(!showHistory)}
-        >
-          <h3>📜 Lịch sử ({history.length})</h3>
-          <span className="toggle-icon">{showHistory ? "▼" : "▶"}</span>
-        </div>
-
-        {showHistory && (
-          <div className="history-list">
-            {history.length === 0 ? (
-              <p className="empty-message">Chưa có lịch sử</p>
-            ) : (
-              history.map((entry, index) => (
-                <div
-                  key={index}
-                  className={`history-item ${getStatusClass(entry.status)}`}
-                >
-                  <div className="history-header-row">
-                    <span className="history-time">
-                      {formatDate(entry.timestamp)}
-                    </span>
-                    <span className={`history-status ${entry.status}`}>
-                      {entry.status}
-                    </span>
-                  </div>
-
-                  {entry.content && (
-                    <div className="history-article">
-                      <strong>Nội dung:</strong> {entry.content.title}
-                      {entry.content.articleId && (
-                        <span className="content-id">
-                          {" "}
-                          (ID: {entry.content.id})
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {entry.channels && entry.channels.length > 0 && (
-                    <div className="history-channels">
-                      <strong>Kênh:</strong>
-                      <ul>
-                        {entry.channels.map((ch, chIndex) => (
-                          <li
-                            key={chIndex}
-                            className={ch.success ? "success" : "failed"}
-                          >
-                            {ch.success ? "✓" : "✗"} {ch.platform} -{" "}
-                            {ch.channelName}
-                            {ch.postId && ` (ID: ${ch.postId})`}
-                            {ch.error && ` - ${ch.error}`}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {entry.errors && entry.errors.length > 0 && (
-                    <div className="history-errors">
-                      <strong>Lỗi:</strong>
-                      <ul>
-                        {entry.errors.map((err, errIndex) => (
-                          <li key={errIndex}>
-                            {err.channel && `${err.channel}: `}
-                            {err.error}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                <input
+                  type="text"
+                  value={cronPattern}
+                  onChange={(e) => setCronPattern(e.target.value)}
+                  placeholder="*/10 * * * *"
+                />
+                <div className="cron-examples">
+                  <button
+                    className="btn-example"
+                    onClick={() => setCronPattern("*/10 * * * *")}
+                  >
+                    Mỗi 10 phút
+                  </button>
+                  <button
+                    className="btn-example"
+                    onClick={() => setCronPattern("*/30 * * * *")}
+                  >
+                    Mỗi 30 phút
+                  </button>
+                  <button
+                    className="btn-example"
+                    onClick={() => setCronPattern("0 * * * *")}
+                  >
+                    Mỗi giờ
+                  </button>
+                  <button
+                    className="btn-example"
+                    onClick={() => setCronPattern("0 */2 * * *")}
+                  >
+                    Mỗi 2 giờ
+                  </button>
                 </div>
-              ))
-            )}
-          </div>
-        )}
+              </div>
+
+              <div className="config-item">
+                <label>
+                  <strong>Số bài mỗi lần chạy:</strong>
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  value={articlesPerRun}
+                  onChange={(e) => setArticlesPerRun(e.target.value)}
+                />
+                <span className="help-text">(Từ 1 đến 10 bài)</span>
+              </div>
+
+              <div className="config-actions">
+                <button className="btn-primary" onClick={handleSaveConfig}>
+                  💾 Lưu cấu hình
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

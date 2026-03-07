@@ -346,41 +346,44 @@ async function rewriteArticle(articleId, targetUrl) {
 
   // 2. Prompt chỉ đạo AI - YÊU CẦU TRẢ VỀ JSON
   const myPrompt = `
-        Bạn là một biên tập viên tiếng Việt chuyên nghiệp, sáng tạo và biết cách sử dụng emoji để tăng cảm xúc cho bài viết.
+        Bạn là một biên tập viên tiếng Việt chuyên nghiệp, viết nội dung CÔ ĐỌNG, SÚNG SÚNG, DỄ ĐỌC.
 
-        NHIỆM VỤ: Viết lại bài báo dưới đây bằng tiếng Việt CHUẨN, KHÔNG SAI NGỮ PHÁP, CÓ THÊM EMOJI ĐỂ TĂNG SỨC HẤP DẪN.
+        NHIỆM VỤ: Viết lại bài báo theo phong cách FACEBOOK POST - NGẮN GỌN, DỄ HIỂU, CÓ EMOJI.
 
-        CÁC LỖI CẤM KỴ (TUYỆT ĐỐI KHÔNG ĐƯỢC MẮC):
-        ❌ "được yêu thất" → ✅ "được yêu thích"
-        ❌ "kỷ lục vượt ra" → ✅ "phá vỡ kỷ lục"
-        ❌ Sử dụng từ không có nghĩa
-        ❌ Dùng sai thì động từ
-        ❌ Sai chính tả tiếng Việt
+        YÊU CẦU NỘI DUNG:
+        ✅ Title: NGẮN GỌN (5-10 từ), CÓ EMOJI, BẮT MẮT
+        ✅ Summary: 1-2 CÂU tóm tắt ý chính (max 150 ký tự)
+        ✅ Content: 2-4 ĐOẠN VĂN NGẮN, mỗi đoạn 2-3 câu
+           - Đoạn 1: Thông tin chính
+           - Đoạn 2-3: Chi tiết quan trọng (nếu có)
+           - Đoạn cuối: Kết luận hoặc tác động
+           - Tổng độ dài: 200-400 ký tự (KHÔNG QUÁ DÀI)
+        ✅ Emoji: Sử dụng vừa phải (2-4 emoji/bài), tự nhiên
+        ✅ Ngữ pháp: CHUẨN tiếng Việt, KHÔNG SAI CHÍNH TẢ
 
-        YÊU CẦU VỀ EMOJI:
-        - Thêm emoji phù hợp vào TIÊU ĐỀ (1-2 emoji)
-        - Thêm emoji vào NỘI DUNG ở những chỗ quan trọng để tăng cảm xúc
-        - Không dùng quá nhiều emoji, giữ sự chuyên nghiệp
-        - ƯU TIÊN: 🎉 💪 ❤️ 🌟 ✨ 🔥 😍 👏 🎯 🚀 💯 🎊 🏆 👑 💖
+        CẤM KỴ:
+        ❌ Viết dài dòng, lan man
+        ❌ Sai ngữ pháp ("được yêu thất", "kỷ lục vượt ra")
+        ❌ Lặp lại thông tin nhiều lần
+        ❌ Dùng từ ngữ phức tạp, khó hiểu
 
-        YÊU CẦU KHÁC:
-        - Phong cách: Trẻ trung, sinh động, hấp dẫn
-        - Giữ nguyên số liệu, tên riêng
-        - Kiểm tra kỹ từng câu trước khi trả lời
-        - Thêm phần ghi nguồn ở cuối bài viết (ví dụ: "Nguồn: vnexpress.net")
+        EMOJI ƯU TIÊN: 🎉 💪 ❤️ 🌟 ✨ 🔥 👏 🎯 🚀 💯 🏆 👑
 
-        QUAN TRỌNG: Trả về kết quả dưới dạng JSON với cấu trúc sau:
+        PHONG CÁCH: Tự nhiên như đăng Facebook cá nhân, dễ đọc, dễ chia sẻ.
+
+        Trả về JSON:
         {
-        "title": "EMOJI TIÊU ĐỀ IN HOA, HẤP DẪN EMOJI",
-        "content": "Nội dung bài viết đã được viết lại với ngữ pháp hoàn hảo, có emoji ở những chỗ quan trọng.",
-        "summary": "Tóm tắt 2-3 câu ngắn gọn, hấp dẫn",
-        "hashtags": ["Tag1", "Tag2", "Tag3"],
-        "category": "Danh mục bài viết (ví dụ: Giải trí, Công nghệ, Du lịch...)"
+        "title": "Tiêu đề ngắn gọn có emoji 📰",
+        "summary": "Tóm tắt 1-2 câu ngắn",
+        "content": "Nội dung 2-4 đoạn văn ngắn, cô đọng, có emoji phù hợp. Mỗi đoạn 2-3 câu.",
+        "hashtags": ["HashtagKhongDauKhongKyTuDacBiet", "Hashtag2", "Hashtag3"],
+        "category": "Tin Tức/Giải Trí/Công Nghệ/..."
         }
 
         LƯU Ý:
-        - hashtag chữ tiếng việt, không ký tự đặc biệt, viết liền nhau nếu có nhiều từ
-        - Chỉ trả về JSON, không thêm text nào khác.
+        - Content NGẮN GỌN, DỄ ĐỌC trên di động
+        - Hashtag viết liền không dấu, không ký tự đặc biệt
+        - Chỉ trả về JSON thuần, không comment
     `;
 
   // Thực thi

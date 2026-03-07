@@ -5,14 +5,14 @@ const autoPost = require("../flows/auto-post");
  */
 exports.getStatus = async (req, res) => {
   try {
-    const config = await autoPost.readConfig();
     const status = autoPost.getStatus();
 
     res.json({
       success: true,
       data: {
-        ...config,
-        schedulerRunning: status.running,
+        hotCrawlerRunning: status.hotArticlesCrawlerRunning,
+        hotCrawlerActive: status.hotArticlesCrawlerActive,
+        config: status.config,
       },
     });
   } catch (error) {
@@ -26,7 +26,7 @@ exports.getStatus = async (req, res) => {
 };
 
 /**
- * Get auto-post configuration
+ * Get hot crawler config
  */
 exports.getConfig = async (req, res) => {
   try {
@@ -37,61 +37,68 @@ exports.getConfig = async (req, res) => {
       data: config,
     });
   } catch (error) {
-    console.error("Error getting auto-post config:", error);
+    console.error("Error getting hot crawler config:", error);
     res.status(500).json({
       success: false,
-      message: "Không thể lấy cấu hình auto-post",
+      message: "Không thể lấy cấu hình",
       error: error.message,
     });
   }
 };
 
 /**
- * Update auto-post configuration
+ * Update hot crawler config
  */
 exports.updateConfig = async (req, res) => {
   try {
-    const { channels, intervalMinutes } = req.body;
+    const { cronPattern, articlesPerRun } = req.body;
 
     // Validate inputs
-    if (!channels || !Array.isArray(channels)) {
-      return res.status(400).json({
-        success: false,
-        message: "channels phải là một mảng",
-      });
+    if (cronPattern !== undefined) {
+      const cron = require("node-cron");
+      if (!cron.validate(cronPattern)) {
+        return res.status(400).json({
+          success: false,
+          message: "Cron pattern không hợp lệ",
+        });
+      }
     }
 
-    if (intervalMinutes && (isNaN(intervalMinutes) || intervalMinutes <= 0)) {
-      return res.status(400).json({
-        success: false,
-        message: "intervalMinutes phải là số dương",
-      });
+    if (articlesPerRun !== undefined) {
+      if (isNaN(articlesPerRun) || articlesPerRun < 1 || articlesPerRun > 10) {
+        return res.status(400).json({
+          success: false,
+          message: "Số bài mỗi lần phải từ 1 đến 10",
+        });
+      }
     }
 
     // Read current config
     const config = await autoPost.readConfig();
 
     // Update config
-    config.channels = channels;
-    if (intervalMinutes) {
-      config.intervalMinutes = intervalMinutes;
+    if (cronPattern !== undefined) {
+      config.cronPattern = cronPattern;
+    }
+    if (articlesPerRun !== undefined) {
+      config.articlesPerRun = parseInt(articlesPerRun);
     }
 
     await autoPost.writeConfig(config);
 
-    // Restart scheduler if it was running
+    // Restart crawler if it was running
     if (config.enabled) {
-      autoPost.stopScheduler();
-      await autoPost.startScheduler();
+      await autoPost.stopHotArticlesCrawler();
+      await autoPost.startHotArticlesCrawler();
     }
 
     res.json({
       success: true,
-      message: "Cập nhật cấu hình thành công",
+      message: "Cập nhật cấu hình thành công. Vui lòng khởi động lại crawler.",
       data: config,
     });
   } catch (error) {
-    console.error("Error updating auto-post config:", error);
+    console.error("Error updating hot crawler config:", error);
     res.status(500).json({
       success: false,
       message: "Không thể cập nhật cấu hình",
@@ -101,104 +108,71 @@ exports.updateConfig = async (req, res) => {
 };
 
 /**
- * Enable auto-posting
+ * Start hot articles crawler scheduler
  */
-exports.enable = async (req, res) => {
+exports.startHotCrawler = async (req, res) => {
   try {
-    const config = await autoPost.readConfig();
-
-    // Validate configuration
-    if (!config.channels || config.channels.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "Vui lòng cấu hình kênh đăng bài trước khi bật auto-post",
-      });
-    }
-
-    config.enabled = true;
-    await autoPost.writeConfig(config);
-    await autoPost.startScheduler();
+    autoPost.startHotArticlesCrawler();
 
     res.json({
       success: true,
-      message: "Đã bật auto-post",
-      data: config,
+      message: "Đã bật auto-post crawler (chạy mỗi 10 phút)",
     });
   } catch (error) {
-    console.error("Error enabling auto-post:", error);
+    console.error("Error starting hot articles crawler:", error);
     res.status(500).json({
       success: false,
-      message: "Không thể bật auto-post",
+      message: "Không thể bật hot articles crawler",
       error: error.message,
     });
   }
 };
 
 /**
- * Disable auto-posting
+ * Stop hot articles crawler scheduler
  */
-exports.disable = async (req, res) => {
+exports.stopHotCrawler = async (req, res) => {
   try {
-    const config = await autoPost.readConfig();
-    config.enabled = false;
-    await autoPost.writeConfig(config);
-    autoPost.stopScheduler();
+    autoPost.stopHotArticlesCrawler();
 
     res.json({
       success: true,
-      message: "Đã tắt auto-post",
-      data: config,
+      message: "Đã tắt hot articles crawler",
     });
   } catch (error) {
-    console.error("Error disabling auto-post:", error);
+    console.error("Error stopping hot articles crawler:", error);
     res.status(500).json({
       success: false,
-      message: "Không thể tắt auto-post",
+      message: "Không thể tắt hot articles crawler",
       error: error.message,
     });
   }
 };
 
 /**
- * Manually trigger auto-post job
+ * Manually trigger crawl-select-and-auto-post
  */
-exports.runNow = async (req, res) => {
+exports.crawlAndAutoPost = async (req, res) => {
   try {
     // Run job in background
-    autoPost.executeAutoPost().catch((err) => {
-      console.error("Error in manual auto-post execution:", err);
-    });
+    autoPost
+      .crawlSelectAndAutoPost()
+      .then((result) => {
+        console.log("[MANUAL AUTO-POST] Completed:", result);
+      })
+      .catch((err) => {
+        console.error("[MANUAL AUTO-POST] Error:", err);
+      });
 
     res.json({
       success: true,
-      message: "Đã kích hoạt auto-post thủ công",
+      message: "Đã bắt đầu crawl, chọn bài tốt nhất và đăng lên tất cả page",
     });
   } catch (error) {
-    console.error("Error triggering auto-post:", error);
+    console.error("Error triggering crawl and auto post:", error);
     res.status(500).json({
       success: false,
-      message: "Không thể kích hoạt auto-post",
-      error: error.message,
-    });
-  }
-};
-
-/**
- * Get auto-post history
- */
-exports.getHistory = async (req, res) => {
-  try {
-    const history = await autoPost.readHistory();
-
-    res.json({
-      success: true,
-      data: history,
-    });
-  } catch (error) {
-    console.error("Error getting auto-post history:", error);
-    res.status(500).json({
-      success: false,
-      message: "Không thể lấy lịch sử auto-post",
+      message: "Không thể bắt đầu crawl and auto post",
       error: error.message,
     });
   }
